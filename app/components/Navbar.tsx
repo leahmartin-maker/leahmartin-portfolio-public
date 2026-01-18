@@ -13,7 +13,7 @@
  * - aria-label describes the navigation purpose
  * - Each link has descriptive text for screen readers
  */
-
+import React from 'react';
 export default function Navbar() {
     return (
     <nav 

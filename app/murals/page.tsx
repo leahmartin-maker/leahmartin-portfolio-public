@@ -20,7 +20,7 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Navbar from '../Navbar';
+import Navbar from '../components/Navbar';
 
 // Mapbox access token
 mapboxgl.accessToken = 'pk.eyJ1IjoibGVhaG1hcnRpbi1tYWtlciIsImEiOiJjbWs3OWhtaHYxMnU4M2hwdzhtdjVsbzZsIn0.6v_uxNreMRzVockKLFv80Q';

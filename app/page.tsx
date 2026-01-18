@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "./Navbar";
+import Navbar from "./components/Navbar";
 import SwimmingTurtles from "./components/SwimmingTurtles";
 
 export default function Home() {
