@@ -1,0 +1,47 @@
+{
+    "murals":[
+        {
+            "title": "Aransas Pass City Hall",
+            "longitude": -97.1418,
+            "latitude": 27.9102,
+            "description": "A vibrant mural depicting the rich history and culture of Aransas Pass, Texas, located on the side of the City Hall building.",
+            "media": [
+            "images/CityHall-Video.mp4",
+            "images/CityHall-1.webp",
+            "images/CityHall-2.webp",
+            "images/CityHall-3.webp",
+            "images/CityHall-4.webp"
+            ]
+        },
+        {
+            "title": "Ellis Memorial Library",
+            "longitude": -97.0670,
+            "latitude": 27.8365,
+            "description": "Farley boats, Planters, and an Interior Mural in the Special Collections Room.",
+            "media": [
+                "images/library.jpg",
+                "images/library-2.jpg",
+                "images/library-planter-1.webp",
+                "images/library-planter-2.webp",
+                "images/library-planter-3.webp"
+            ]
+        },
+        {
+            "title": "H.G. Olsen Elementary School",
+            "longitude": -97.0607,
+            "latitude": 27.8312,
+            "description": "A Creative Redesign of the School's Logo on an Exterior Wall.",
+            "media": [
+                
+            ]
+        },
+        {
+            "title": "Michies Self Storage",
+            "longitude": -97.0688,
+            "latitude": 27.8359,
+            "description": "An underwater storage facility themed Farley Boat",
+            "media": [
+            ]
+        }
+    ]
+}

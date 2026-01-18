@@ -1,0 +1,131 @@
+{
+    "murals":[
+        {
+            "title": "Aransas Pass Police Department",
+            "longitude": -97.1418,
+            "latitude": 27.9100,
+            "description": "Interior mural inside the Aransas Pass Police Department - head inside to check it out!",
+            "media": [
+                "/images/appd.webp"
+            ]
+        },
+        {
+            "title": "Aransas Pass City Hall",
+            "longitude": -97.1418,
+            "latitude": 27.9102,
+            "description": "A vibrant mural depicting the rich history and culture of Aransas Pass, Texas, located on the side of the City Hall building.",
+            "media": [
+            "/images/CityHall-Video.mp4",
+            "/images/CityHall-1.webp",
+            "/images/CityHall-2.webp",
+            "/images/CityHall-3.webp",
+            "/images/CityHall-4.webp",
+            "/images/cityhall-5.webp"
+            ]
+        },
+        {
+            "title": "Ellis Memorial Library",
+            "longitude": -97.0670,
+            "latitude": 27.8365,
+            "description": "Farley boats, Planters, and an Interior Mural in the Special Collections Room.",
+            "media": [
+                "/images/library.webp",
+                "/images/library-2.webp",
+                "/images/library-farley-1.webp",
+                "/images/library-planter-1.webp",
+                "/images/library-planter-2.webp",
+                "/images/library-planter-3.webp",
+                "/images/library-planter-4.webp"
+            ]
+        },
+        {
+            "title": "H.G. Olsen Elementary School",
+            "longitude": -97.0607,
+            "latitude": 27.8312,
+            "description": "A Creative Redesign of the School's Logo on an Exterior Wall.",
+            "media": [
+                "/images/marlin1.webp",
+                "/images/marlin2.webp",
+                "/images/marlin3.webp"
+            ]
+        },
+        {
+            "title": "Michies Self Storage",
+            "longitude": -97.0688,
+            "latitude": 27.8359,
+            "description": "An underwater-themed Farley boat featuring playful sea creatures storing their treasures in miniature storage units - bringing whimsy to a Port Aransas community art piece.",
+            "media": [
+                "/images/storage.webp",
+                "/images/storage-2.webp",
+                "/images/storage-3.webp",
+                "/images/storage-4.webp",
+                "/images/storage-5.webp"
+            ]
+        },
+        {
+            "title": "First Mural - Dyna Street",
+            "longitude": -97.22733990327104,
+            "latitude": 27.59404646063949,
+            "description": "My very first mural - a career-defining moment that launched my journey from server to full-time artist.",
+            "media": [
+                "/images/dyna-1.webp",
+                "/images/dyna-2.webp",
+                "/images/dyna-3.webp",
+                "/images/dyna-4.webp",
+                "/images/dyna-5.webp",
+                "/images/dyna-6.webp",
+                "/images/dyna-7.webp"
+            ]
+        },
+        {
+            "title": "FBISD",
+            "longitude": -97.29510368737851,
+            "latitude": 27.64824471653425,
+            "description": "An interactive photo-op mural where students can stand in front of painted hornet wings - bringing school spirit to life at the 3rd & 4th grade building.",
+            "media": [
+                "/images/fbschool.webp",
+                "/images/fbwings.webp",
+                "/images/fbwings-2.webp"
+            ]
+        },
+        {
+            "title": "The Corner of Whitecap & Aquarius",
+            "longitude": -97.23777922879302,
+            "latitude": 27.602519246419888,
+            "description": "A corner mural showcasing my love for sea turtles.",
+            "media": [
+                "/images/aquarius.webp",
+                "/images/aquarius2.webp",
+                "/images/aquarius3.webp",
+                "/images/aquariusme.webp"
+            ]
+        },
+        {
+            "title": "Aransas Pass Aquatic Center",
+            "longitude": -97.15381106931363,
+            "latitude": 27.88477133645404,
+            "description": "Interior pool area mural - one of the murals featured in my AR experience project.",
+            "media": [
+                "/images/aquatic.webp",
+                "/images/aquatic2.webp",
+                "/images/aquatic4.webp"
+            ]
+        },
+        {
+            "title": "Portillo Residence - Free Little Library",
+            "longitude": -97.22999735419835,
+            "latitude": 27.58834940324138,
+            "description": "A residential garage door mural featuring tropical flowers and cuddly friends - visit the painted cottage-style Free Little Library to take a book, leave a book, and enjoy the art!",
+            "media": [
+                "/images/Portillo-1.webp",
+                "/images/portillo2.webp",
+                "/images/portillo4.webp",
+                "/images/portillo5.webp",
+                "/images/portillo6.webp",
+                "/images/portillo7.webp",
+                "/images/portillodog.webp",
+                "/images/portillolibrary.webp"
+            ]
+        }
+    ]
+}

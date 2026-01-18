@@ -1,0 +1,28 @@
+{
+  "skateparks": [
+    {
+      "name": "Cole Park Skatepark",
+      "latitude": 27.7825,
+      "longitude": -97.3936,
+      "description": "Large concrete park with bowls, rails, and ledges. Ocean view, lights, and restrooms.",
+      "media": ["/images/skateparks/cole-park-1.jpg"],
+      "sponsorLogo": "/skatepark/skatelogo.png"
+    },
+    {
+      "name": "Portland Skatepark",
+      "latitude": 27.8772,
+      "longitude": -97.3231,
+      "description": "Medium-sized park with street and transition features. Family-friendly, shaded seating.",
+      "media": ["/images/skateparks/portland-1.jpg"],
+      "sponsorLogo": "/skatepark/skatelogo.png"
+    },
+    {
+      "name": "Robstown Skatepark",
+      "latitude": 27.7901,
+      "longitude": -97.6692,
+      "description": "Small but smooth park. Good for beginners. Covered picnic area nearby.",
+      "media": ["/images/skateparks/robstown-1.jpg"],
+      "sponsorLogo": "/skatepark/skatelogo.png"
+    }
+  ]
+}

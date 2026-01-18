@@ -1,0 +1,91 @@
+{
+    "canvases": [
+        {
+            "title": "Sea Turtle in Sunray",
+            "image": "images/seaturtlesunray.png"
+        }
+        ,
+        {
+            "title": "Easy Beach",
+            "image": "images/beach-1.png"
+         
+        }
+        ,
+        {
+            "title": "Baby yoda",
+            "image": "images/babyyoda.jpg"
+
+        }
+        ,
+        {
+            "title": "Sea Turtle Commission",
+            "image": "images/merittsturtle.png"
+
+        }
+        ,
+        {
+            "title": "Monsters",
+            "image": "images/monsters.jpg"
+
+        }
+        ,
+        {
+            "title": "Sea turtle",
+            "image": "images/turtlestickerog.jpg"
+
+        }
+        ,
+        {
+            "title": "HK Anchor",
+            "image": "images/hkanchor.heic"
+
+        }
+        ,
+        {
+            "title": "Bobs Burgers Ghost",
+            "image": "images/bobsghost.webp"
+
+        }
+        ,
+        {
+            "title": "Blue Macaws",
+            "image": "images/bluemacaws.jpg"
+
+        }
+        ,
+        {
+            "title": "Beach Scene",
+            "image": "images/favbeach.png"
+
+        }
+        ,
+        {
+            "title": "Beach",
+            "image": "images/hangingbeach.png"
+
+        }
+        ,
+        {
+            "title": "USAF Fighter Jet Commission",
+            "image": "images/usaf.png"
+
+        }
+        ,
+        {
+            "title": "Mr. Green Eyes",
+            "image": "images/mrgreeneyes.png"
+
+        }
+        ,
+        {
+            "title": "Hibiscus SeaTurtle",
+            "image": "images/hibiscusturtle.webp"
+
+        }
+        ,
+        {
+            "title": "Maui Wildfire Donation",
+            "image": "images/maui.heic"
+        }
+    ]
+}

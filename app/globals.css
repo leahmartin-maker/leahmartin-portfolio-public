@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/* 
+ * CUSTOM COLOR PALETTE - "Saturated Shore" Theme
+ * @theme tells Tailwind v4 to register these as utility classes
+ */
+@theme {
+  --color-sea-life: #00c5cd;      /* Primary - Sea Life Turquoise */
+  --color-coral: #f0bba5;         /* Accent - Sunset Coral */
+  --color-stucco: #f5f5f5;        /* Background - Weathered Stucco */
+  --color-sunset-yellow: #FFD89C; /* New - Sunset Yellow */
+}
+
+/* ============================================
+   FLOATING BUBBLES ANIMATIONS - About Page
+   ============================================ */
+
+/* KEYFRAME 1: Float Up
+ * Purpose: Move bubble from bottom of screen to top
+ * Timeline:
+ *   0%: Bubble starts below screen, invisible
+ *   5%: Quick fade in
+ *   90%: Still fully visible as it nears top
+ *   95%: Fade out BEFORE reaching top
+ *   100%: Fully invisible above screen, photo swaps here
+ */
+@keyframes float-up {
+  0% { 
+    bottom: -200px; 
+    opacity: 0; 
+  }
+  5% { 
+    opacity: 1; 
+  }
+  90% { 
+    opacity: 1; 
+  }
+  95% {
+    opacity: 0;
+  }
+  100% { 
+    bottom: calc(100vh + 200px); 
+    opacity: 0; 
+  }
+}
+
+/* KEYFRAME 2: Bubble Wobble
+ * Purpose: Side-to-side drift (like real bubbles in water)
+ * Why separate animation?: So we can control speed independently
+ * Result: Bubble floats up (30s) while wobbling side-to-side (8s loop)
+ */
+@keyframes bubble-wobble {
+  0%, 100% { 
+    transform: translateX(0px); 
+  }
+  25% { 
+    transform: translateX(15px); 
+  }
+  75% { 
+    transform: translateX(-15px); 
+  }
+}
+
+/* BASE BUBBLE STYLES
+ * Applied to all bubbles regardless of size/position
+ */
+.bubble {
+  position: absolute; /* Positioned within fixed container */
+  border-radius: 50%; /* Makes it circular */
+  overflow: hidden; /* Image stays inside circle */
+  
+  /* Thin subtle border */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  
+  /* REALISTIC BUBBLE EFFECT - Glass-like appearance with iridescent glow */
+  box-shadow: 
+    /* Iridescent rim - pinks and blues like real bubbles */
+    0 0 2px rgba(255, 182, 193, 0.6),
+    0 0 4px rgba(173, 216, 230, 0.5),
+    0 0 6px rgba(221, 160, 221, 0.4),
+    /* Outer glow - soft sea-life color */
+    0 0 30px rgba(0, 197, 205, 0.4),
+    0 0 60px rgba(0, 197, 205, 0.2),
+    /* Top-left highlight shimmer (light reflection) */
+    inset -15px -15px 30px rgba(255, 255, 255, 0.6),
+    inset -25px -25px 50px rgba(255, 255, 255, 0.3),
+    /* Bottom-right subtle teal shadow (depth) - less intense */
+    inset 15px 15px 30px rgba(0, 197, 205, 0.15),
+    inset 25px 25px 50px rgba(0, 100, 120, 0.1),
+    /* Outer shadow for depth */
+    0 10px 25px rgba(0, 0, 0, 0.15);
+  
+  /* Subtle glass-like filter */
+  backdrop-filter: blur(1px);
+  
+  /* FASTER ANIMATION FOR 15-SECOND DISPLAY:
+   * float-up: 10s duration (faster!), linear speed, ONE iteration only (not infinite)
+   * bubble-wobble: 4s duration, ease-in-out for smooth wobble, infinite loop
+   */
+  animation: 
+    float-up 10s linear forwards,
+    bubble-wobble 4s ease-in-out infinite;
+}
+
+/* Image inside bubble */
+.bubble-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.98;
+}
+
+/* Subtle glassy overlay for realistic bubble surface */
+.bubble::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 25%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+/* ============================================
+   RESPONSIVE POSITIONING - DESKTOP
+   Each bubble gets unique position and size
+   ============================================ */
+@media (min-width: 1024px) {
+  .bubble-1 {
+    left: 8%; /* Left side margin */
+    width: 180px;
+    height: 180px;
+  }
+  
+  .bubble-2 {
+    right: 12%; /* Right side margin */
+    width: 160px;
+    height: 160px;
+  }
+  
+  .bubble-3 {
+    left: 15%; /* Further left */
+    width: 200px;
+    height: 200px;
+  }
+  
+  .bubble-4 {
+    right: 8%;
+    width: 170px;
+    height: 170px;
+  }
+  
+  .bubble-5 {
+    left: 5%; /* Far left edge */
+    width: 150px;
+    height: 150px;
+  }
+  
+  .bubble-6 {
+    right: 15%;
+    width: 190px;
+    height: 190px;
+  }
+  
+  .bubble-7 {
+    left: 12%;
+    width: 165px;
+    height: 165px;
+  }
+  
+  .bubble-8 {
+    right: 5%;
+    width: 175px;
+    height: 175px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE POSITIONING - MOBILE
+   Fewer bubbles, smaller, FULL OPACITY, faster
+   ============================================ */
+@media (max-width: 1023px) {
+  .bubble {
+    /* Mobile uses same faster timing as desktop */
+    animation: 
+      float-up 10s linear forwards,
+      bubble-wobble 4s ease-in-out infinite;
+  }
+  
+  .bubble-1 {
+    left: 10%;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .bubble-2 {
+    right: 10%;
+    width: 140px;
+    height: 140px;
+  }
+  
+  .bubble-3 {
+    left: 15%;
+    width: 110px;
+    height: 110px;
+  }
+  
+  .bubble-4 {
+    right: 15%;
+    width: 130px;
+    height: 130px;
+  }
+  
+  .bubble-5 {
+    left: 5%;
+    width: 115px;
+    height: 115px;
+  }
+  
+  .bubble-6 {
+    right: 5%;
+    width: 125px;
+    height: 125px;
+  }
+
+  .bubble-9 {
+    left: 30%;
+    width: 118px;
+    height: 118px;
+  }
+
+  .bubble-10 {
+    left: 50%;
+    width: 112px;
+    height: 112px;
+    transform: translateX(-50%);
+  }
+
+  .bubble-11 {
+    right: 30%;
+    width: 122px;
+    height: 122px;
+  }
+  
+  /* Bubbles 7 and 8 hidden on mobile via "hidden lg:block" class */
+}

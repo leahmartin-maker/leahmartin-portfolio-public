@@ -1,0 +1,44 @@
+{
+    "paintings": [
+    {
+        "image": "images/babyyoda.jpg",
+        "width": 4,
+        "height": 4,
+        "x": 0,
+        "y": 6,
+        "z": -9.9
+    },
+    {
+        "image": "images/bluemacaws.jpg",
+        "width": 4,
+        "height": 4,
+        "x": -5,
+        "y": 5,
+        "z": -9.9
+    },
+    {
+        "image": "images/bobsghost.webp",
+        "width": 3,
+        "height": 3,
+        "x": 6,
+        "y": 5.5,
+        "z": -9.9
+    },
+    {
+        "image": "images/favbeach.png",
+        "width": 4,
+        "height": 4,
+        "x": -9.9,
+        "y": 5.5,
+        "z": 0
+    },
+    {
+        "image": "images/hangingbeach.png",
+        "width": 4,
+        "height": 4,
+        "x": -9.9,
+        "y": 5.5,
+        "z": -6
+    }
+]
+}

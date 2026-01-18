@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Open Graph meta tags for social sharing -->
+  <meta property="og:title" content="Leah Grundhauser Portfolio" />
+  <meta property="og:description" content="Portfolio website for Leah Grundhauser: Full Stack Developer, Mural Artist, and Community Creator." />
+  <meta property="og:image" content="https://leahmartin-maker-github-io.vercel.app/images/turtle-pin-transparent.png" />
+  <meta property="og:image:alt" content="Leah Grundhauser Logo" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://leahmartin-maker-github-io.vercel.app/" />
+    <title>My IT Portfolio Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" href="style.css">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.152.2/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.152.2/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <img src="profile.jpg" alt="profile picture" class="profile-img">
+    <h1>Leah Grundhauser</h1>
+    <p class="mission-statement">
+      Bridging the gap between creative vision and technical execution. 
+      I design and develop modern web applications that prioritize 
+      <strong>performance</strong> and <strong>accessibility</strong>.
+    </p>
+  <div class="contact-links" aria-label="Social media and professional links">
+    <a href="mailto:artbyleahmartin@gmail.com">
+      <i class="fa-solid fa-envelope"></i> Email
+    </a>
+    <a href="https://github.com/leahmartin-maker" target="_blank">
+      <i class="fa-brands fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/leah-martin-535237398/" target="_blank">
+      <i class="fa-brands fa-linkedin"></i> LinkedIn
+    </a>
+  </div>
+<nav>
+  <a href="#about">Mission</a>
+  <a href="#skills">Skills</a>
+  <a href="#journal">Log</a>
+</nav>
+  </header>
+<main>
+  <section>
+    <h2>Current Projects:</h2>
+    <ul>
+        <li>System Health Checker (Git/Bash)</li>
+        <li>Technical Practice Log</li>
+    </ul>
+  </section>
+  <section id="about">
+	<h2>Mission & Growth</h2>
+	<p> I am an aspiring developer focused on building clean, functional web tools. Currently, I am documenting my technical journey to bridge the gap between learning and practical implementation. This site serves as my professional portfolio and a live laboratory for my code. </p>
+  </section>
+  <section id="skills">
+    <h2>Technical Competencies</h2>
+    <div class="skills-container">
+      <span class="skill-tag"> <i class="fa-brands fa-html5"></i> HTML5</span>
+      <span class="skill-tag"> <i class="fa-brands fa-css3-alt"></i> CSS3</span>
+      <span class="skill-tag"> <i class="fa-brands fa-github"></i> Git & GitHub</span>
+      <span class="skill-tag"> <i class="fa-solid fa-terminal"></i> Terminal/Bash</span>
+      <span class="skill-tag"> <i class="fa-solid fa-code"></i> VS Code</span>
+    </div>
+    </section>
+    <section id="Projects">
+      <h2>Featured Projects</h2>
+      <div class="project-card">
+        <h3>Professional Portfolio & Learning Tool</h3>
+        <p>A live-documented website built to showcase my journey into IT. This project demonstrates my proficiency in <strong>semantic HTML5</strong>, <strong>Modern CSS3</strong>, and <strong>Git Version Control</strong>.</p>
+        <a href="https://github.com/leahmartin-maker/leahmartin-maker.github.io" target="_blank" class="project-btn">
+          <i class="fa-brands fa-github"></i> View on GitHub
+        </a>
+      </div>
+    </section>
+<!-- The outer container is now forced to be 70% of the viewer's screen height -->
+<div style="display: flex; width: 100%; height: 70vh; min-height: 500px; border: 3px solid black; background: white;">
+    
+    <!-- THE MAP (Left side) -->
+    <div id="map" style="flex: 2; height: 100%;"></div>
+
+    <!-- THE GALLERY (Right side) -->
+    <div id="mural-gallery" style="flex: 1; height: 100%; background: #eeeeee; padding: 20px; overflow-y: auto; border-left: 2px solid #333;">
+        <h2 id="gallery-title" style="margin-top: 0; color: #333;">Mural Details</h2>
+        <hr>
+        <div id="gallery-content">
+            <p>Click a red pin on the map to view the photos and videos.</p>
+        </div>
+    </div>
+</div>
+<div>
+  <hr style="margin-top: 50px;">
+    <div id="virtual-gallery-container" style="padding: 20px;">
+      <h2>Interactive Gallery</h2>
+      <div id="gallery-display" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+
+      </div>
+    </div>
+</div>
+<div id="three-gallery-container" style="width: 100%; height: 600px;
+background: #000; position: relative;">
+<div style="position: absolute; top: 20px; left: 20px;
+color: white; background: rgba(0,0,0,.5); padding: 15px; border-radius: 8px; 
+pointer-events: none; z-index: 10; font-family: 'Poppins', sans-serif;">
+  <h3 style="margin: 0 0 5px 0; font-size: 16px;">3D Virtual Art Gallery</h3>
+  <p style="margin: 0; font-size: 14px; opacity: .8;">
+      <i>Click and drag to look around.</i>
+  </p>
+</div>
+</main>
+<script>
+  // 1. MAPBOX SETUP
+mapboxgl.accessToken = 'pk.eyJ1IjoibGVhaG1hcnRpbi1tYWtlciIsImEiOiJjbWs3OWhtaHYxMnU4M2hwdzhtdjVsbzZsIn0.6v_uxNreMRzVockKLFv80Q';
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: [-97.1494, 27.9102],
+    zoom: 12,
+    pitch: 45
+});
+
+map.on('load', () => {
+    map.addControl(new mapboxgl.NavigationControl());
+    console.log("Map is loaded.");
+      fetch('murals.json')
+        .then(response => response.json())
+        .then(data => {
+            data.murals.forEach(mural => {
+                const marker = new mapboxgl.Marker({ color: 'red' })
+                    .setLngLat([mural.longitude, mural.latitude])
+                  
+                    .addTo(map);
+
+                marker.getElement().addEventListener('click', () => {
+                    const galleryContent = document.getElementById('gallery-content');
+                    galleryContent.innerHTML = `<h3>${mural.title}</h3><p>${mural.description}</p>`;
+                    mural.media.forEach(File => {
+                        if (File.endsWith('.mp4')) {
+                            galleryContent.innerHTML += `<video controls style="width: 100%; margin-top: 10px;"><source src="${File}" type="video/mp4"></video>`;
+                        } else {
+                            galleryContent.innerHTML += `<img src="${File}" alt="${mural.title}" style="width: 100%; margin-bottom: 10px;"><br>`;
+                        } 
+                    });
+                      });
+                
+            });
+
+        })
+    
+        .catch(error => console.error('Error loading mural data:', error));
+      });
+</script> 
+
+<script type="module">
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+  
+    const container = document.getElementById('three-gallery-container');
+    if (container) {
+    
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x222222); 
+
+     // 2. Setup the Renderer with a forced size
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.clientWidth, 600);
+      container.appendChild(renderer.domElement);
+    
+
+      // 3. Setup Camera and lock its eyes on the center
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / 600, 0.1, 1000);
+      camera.position.set(0, 5, 0);
+      camera.lookAt(0, 0, 0);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.enableZoom = false
+      controls.enablePan = false;
+      controls.target.set(0, 5, -1);
+      controls.rotateSpeed = 0.5;
+      controls.update();
+
+      // 4. Create a BRIGHT WHITE floor (no lighting required for this material)
+      const floorLoader = new THREE.TextureLoader();
+      const floorTexture = floorLoader.load('materials/oakwoodfloor.jpg');
+      const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(20, 20),
+        new THREE.MeshStandardMaterial({
+          map: floorTexture,
+          side: THREE.DoubleSide
+        })
+      );
+      floor.rotation.x = Math.PI / 2;
+      scene.add(floor);
+
+      // 1. add light
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+      const lightbulb = new THREE.PointLight(0xffffff, 0.4);
+      lightbulb.position.set(0, 15, 0);
+      scene.add(lightbulb);
+      
+      
+    const galleryWallMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+        roughness: 0.8,
+        metalness: 0.0
+      });
+      const wall = new THREE.Mesh(new THREE.PlaneGeometry(20, 10),
+      galleryWallMaterial
+    );
+      wall.position.set(0, 5, -10);
+      scene.add(wall);
+
+      const leftwall = new THREE.Mesh(
+        new THREE.PlaneGeometry(20, 10),
+        galleryWallMaterial
+      );
+      leftwall.rotation.y = Math.PI / 2;
+      leftwall.position.set(-10, 5, 0);
+      scene.add(leftwall);
+
+      const rightwall = new THREE.Mesh(
+        new THREE.PlaneGeometry(20, 10),
+        galleryWallMaterial
+      );
+      rightwall.rotation.y = Math.PI / 2;
+      rightwall.position.set(10, 5, 0);
+      scene.add(rightwall);
+
+      const frontwall = new THREE.Mesh(
+        new THREE.PlaneGeometry(20, 10),
+        galleryWallMaterial
+      );
+      frontwall.position.set(0, 5, 10);
+      scene.add(frontwall);
+
+      const ceiling = new THREE.Mesh(
+        new THREE.PlaneGeometry(20, 20),
+        galleryWallMaterial
+      );
+      ceiling.rotation.x = Math.PI / 2;
+      ceiling.position.set(0, 10, 0);
+      scene.add(ceiling);
+
+
+      const artLoader = new THREE.TextureLoader();
+      fetch('artworks.json')
+        .then(response => response.json())
+        .then(data => {
+          data.paintings.forEach(painting => {
+            const texture = artLoader.load(painting.image);
+            const artMaterial = new THREE.MeshStandardMaterial({
+              map: texture,
+              side: THREE.DoubleSide
+            });
+            const artMesh = new THREE.Mesh(
+              new THREE.PlaneGeometry(painting.width, painting.height),
+              artMaterial
+            );
+            artMesh.position.set(painting.x, painting.y, painting.z);
+            scene.add(artMesh);
+            if (painting.rotationY) {
+              artMesh.rotation.y = painting.rotationY;
+            }
+          });
+        })
+        .catch(error => console.error('Error loading artworks:', error));
+      
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+      console.log("3D Gallery is loaded and visible.");
+    }
+</script>
+</body>
+</html>
