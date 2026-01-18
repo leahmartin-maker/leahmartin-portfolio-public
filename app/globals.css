@@ -12,7 +12,7 @@
 }
 
 /* ============================================
-   FLOATING BUBBLES ANIMATIONS - About Page
+    FLOATING BUBBLES ANIMATIONS - About Page
    ============================================ */
 
 /* KEYFRAME 1: Float Up
@@ -126,8 +126,8 @@
 }
 
 /* ============================================
-   RESPONSIVE POSITIONING - DESKTOP
-   Each bubble gets unique position and size
+    RESPONSIVE POSITIONING - DESKTOP
+    Each bubble gets unique position and size
    ============================================ */
 @media (min-width: 1024px) {
   .bubble-1 {
@@ -180,8 +180,8 @@
 }
 
 /* ============================================
-   RESPONSIVE POSITIONING - MOBILE
-   Fewer bubbles, smaller, FULL OPACITY, faster
+    RESPONSIVE POSITIONING - MOBILE
+    Fewer bubbles, smaller, FULL OPACITY, faster
    ============================================ */
 @media (max-width: 1023px) {
   .bubble {
