@@ -42,3 +42,7 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+# API keys and secrets
+app/api/contact/KEY
+KEYS
