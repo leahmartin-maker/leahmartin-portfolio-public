@@ -1,0 +1,65 @@
+// cardLinks.ts
+// Data structure for Leah's digital business card landing page (Landing)
+// Modular, accessible, and ready for dynamic content
+
+export type LinkItem = {
+  label: string;           // Button or link text
+  href?: string;           // URL or mailto/tel (if applicable)
+  icon?: React.ReactNode;  // Icon component (optional)
+  type?: 'form' | 'download' | 'external' | 'modal'; // For special actions
+  ariaLabel?: string;      // For accessibility
+};
+
+export type LinkGroup = {
+  groupLabel: string;      // Main button text (e.g., "Let's Connect")
+  icon?: React.ReactNode;  // Main button icon (optional)
+  items: LinkItem[];       // Sub-links or actions
+};
+
+export const cardLinkGroups: LinkGroup[] = [
+  {
+    groupLabel: "Let's Connect",
+    items: [
+      {
+        label: "Contact Form",
+        type: "form",
+        ariaLabel: "Open contact form to email Leah"
+      },
+      {
+        label: "Mural Submission",
+        type: "form",
+        ariaLabel: "Submit a mural request"
+      }
+    ]
+  },
+  {
+    groupLabel: "Let's Be Friends",
+    items: [
+      { label: "Instagram", href: "https://www.instagram.com/leahmuralartist/", ariaLabel: "Visit Leah's Instagram" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/leah-grundhauser-535237398/", ariaLabel: "Visit Leah's LinkedIn" },
+      { label: "GitHub", href: "https://github.com/leahmartin-maker", ariaLabel: "Visit Leah's GitHub" },
+      { label: "Facebook", href: "https://www.facebook.com/artbyLeahmartin", ariaLabel: "Visit Leah's Facebook" }
+    ]
+  },
+  {
+    groupLabel: "Let's Make Change",
+    items: [
+      { label: "Buy Me a Coffee", href: "#", ariaLabel: "Support Leah on Buy Me a Coffee (coming soon)" },
+      { label: "Donate to Conservation", href: "#", ariaLabel: "Donate to Leah's conservation projects (coming soon)" }
+    ]
+  },
+  {
+    groupLabel: "Let's Keep in Touch",
+    items: [
+      { label: "Add to Contacts", href: "#", type: "download", ariaLabel: "Download Leah's contact card (coming soon)" },
+      { label: "Download Resume", href: "/resume/leah_resume.pdf", type: "download", ariaLabel: "Download Leah's resume" }
+    ]
+  }
+];
+
+// Blog signup (coming soon)
+export const blogSignup = {
+  label: "Sign up to Follow My Adventures",
+  href: "#",
+  ariaLabel: "Sign up to receive Leah's blog updates (coming soon)"
+};
