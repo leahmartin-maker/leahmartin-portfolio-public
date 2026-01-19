@@ -14,7 +14,7 @@ export default function LinkButton({ item }: Props) {
     return (
       <a
         href={item.href}
-        className="block w-full text-left px-4 py-2 rounded bg-teal-100 hover:bg-teal-200 text-teal-900 font-medium focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+        className="block w-full text-center px-4 py-2 rounded bg-sunset-yellow/80 hover:bg-sunset-yellow/40 text-black/60 font-medium focus:outline-none transition"
         target={item.type === 'external' ? '_blank' : undefined}
         rel={item.type === 'external' ? 'noopener noreferrer' : undefined}
         aria-label={item.ariaLabel || item.label}
@@ -27,7 +27,7 @@ export default function LinkButton({ item }: Props) {
   // Placeholder for forms or modals
   return (
     <button
-      className="block w-full text-left px-4 py-2 rounded bg-teal-100 hover:bg-teal-200 text-teal-900 font-medium focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+      className="block w-full text-center px-4 py-2 rounded bg-sunset-yellow/80 hover:bg-sunset-yellow/40 text-black/60 font-medium focus:outline-none transition"
       aria-label={item.ariaLabel || item.label}
       type="button"
       // onClick={...}

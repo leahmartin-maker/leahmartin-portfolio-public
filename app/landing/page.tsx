@@ -7,16 +7,23 @@ import { cardLinkGroups, blogSignup } from './cardLinks';
 import GroupAccordion from './GroupAccordion';
 import BlogSignup from './BlogSignup';
 import SwimmingTurtles from '../components/SwimmingTurtles';
+import Image from 'next/image';
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-stone-50 flex flex-col items-center justify-start pt-8 px-4">
+    <main className="min-h-screen flex flex-col items-center justify-start pt-8 px-4 bg-gradient-to-r from-sea-life/45 via-sunset-yellow/50 to-coral/70">
       {/* Brand Animation */}
       <SwimmingTurtles />
-      <h1 className="text-3xl md:text-5xl font-bold text-teal-700 mb-2" aria-label="Leah Grundhauser Digital Business Card">
-        Leah Grundhauser
-      </h1>
-      <p className="text-lg text-teal-900 mb-8 text-center max-w-xl" aria-label="Artist, Developer, Conservationist">
+      <div className="relative w-full max-w-[500px] h-60 mb-0 mx-auto">
+        <Image
+          src="/images/grundhausersignature.png"
+          alt="Leah Grundhauser signature"
+          fill
+          className="object-contain object-center"
+          priority
+        />
+      </div>
+      <p className="text-xl text-sea-life mb-8 text-center max-w-xl" aria-label="Artist, Developer, Conservationist">
         Muralist • Developer • Conservationist
       </p>
       {/* Link Groups */}
@@ -30,3 +37,4 @@ export default function LandingPage() {
     </main>
   );
 }
+

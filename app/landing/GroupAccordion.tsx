@@ -1,10 +1,13 @@
+
+
+"use client";
 // app/landing/GroupAccordion.tsx
-// Accessible, expandable group for landing page links
+// Modal popup for grouped links, matching murals map style
 // Follows ARIA, modularity, and Tailwind standards
 
 import type { LinkGroup } from './cardLinks';
-// import LinkButton from './LinkButton';
-import { useState } from 'react';
+import LinkButton from './LinkButton';
+import { useState, useRef, useEffect } from 'react';
 
 interface Props {
   group: LinkGroup;
@@ -12,25 +15,84 @@ interface Props {
 
 export default function GroupAccordion({ group }: Props) {
   const [open, setOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Trap focus in modal for accessibility
+  useEffect(() => {
+    if (open && modalRef.current) {
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        'a, button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      focusable[0]?.focus();
+    }
+  }, [open]);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    if (!open) return;
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpen(false);
+    }
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [open]);
+
+  // Prevent background scroll when modal is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  // Use group.color for button background
+  const buttonColor = group.color || 'bg-sea-life';
+
   return (
-    <div className="rounded-lg shadow bg-white">
+    <>
       <button
-        className="w-full flex items-center justify-between px-6 py-4 text-lg font-semibold text-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-t-lg"
+        className={`w-full px-6 py-4 text-lg font-semibold text-white rounded-lg shadow-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-coral focus:ring-offset-2 transition ${buttonColor}`}
+        aria-haspopup="dialog"
         aria-expanded={open}
-        aria-controls={`panel-${group.groupLabel}`}
-        onClick={() => setOpen(v => !v)}
-        aria-label={`Expand ${group.groupLabel} options`}
+        aria-controls={`modal-${group.groupLabel}`}
+        onClick={() => setOpen(true)}
+        aria-label={`Open ${group.groupLabel} options`}
       >
-        <span>{group.groupLabel}</span>
-        <span aria-hidden="true">{open ? '−' : '+'}</span>
+        {group.groupLabel}
       </button>
       {open && (
-        <div id={`panel-${group.groupLabel}`} className="flex flex-col gap-2 px-6 pb-4" role="region" aria-label={group.groupLabel}>
-          {/* {group.items.map(item => (
-            <LinkButton key={item.label} item={item} />
-          ))} */}
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          role="dialog"
+          aria-modal="true"
+          aria-label={group.groupLabel}
+        >
+          <div
+            ref={modalRef}
+            id={`modal-${group.groupLabel}`}
+            className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-8 relative flex flex-col items-center animate-fadeIn"
+          >
+            <button
+              className="absolute top-3 right-3 text-coral hover:text-sunset-yellow text-2xl font-bold focus:outline-none"
+              aria-label="Close dialog"
+              onClick={() => setOpen(false)}
+              tabIndex={0}
+            >
+              ×
+            </button>
+            <h2 className="text-5xl font-name text-sea-life/80 mb-4 text-center">{group.groupLabel}</h2>
+            <div className="flex flex-col gap-3 w-full">
+              {group.items.map(item => (
+                <LinkButton key={item.label} item={item} />
+              ))}
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

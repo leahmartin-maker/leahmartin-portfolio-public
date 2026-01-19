@@ -9,6 +9,10 @@
   --color-coral: #f0bba5;         /* Accent - Sunset Coral */
   --color-stucco: #f5f5f5;        /* Background - Weathered Stucco */
   --color-sunset-yellow: #FFD89C; /* New - Sunset Yellow */
+  
+  /* Custom Fonts - Mapped from layout.tsx CSS variables */
+  --font-handwriting: var(--font-handwriting); /* Loved by the King */
+  --font-name: var(--font-name);               /* Just Another Hand */
 }
 
 /* ============================================
