@@ -1,11 +1,8 @@
 // cardLinks.ts
 // Data structure for Leah's digital business card landing page (Landing)
 // Modular, accessible, and ready for dynamic content
-//
-// Real World Context:
-// In professional SaaS platforms, this data-driven approach lets marketing teams or admins
-// update links, colors, and labels without touching component code. It's the foundation
-// of scalable, maintainable UI systems used by companies like Stripe, Vercel, and GitHub.
+
+import { color } from "three/tsl";
 
 export type LinkItem = {
   label: string;           // Button or link text
@@ -34,9 +31,9 @@ export const cardLinkGroups: LinkGroup[] = [
         ariaLabel: "Open contact form to email Leah"
       },
       {
-        label: "Mural Submission",
-        type: "modal",
-        ariaLabel: "Apply for a free mural"
+        label: "Community/Non-Profit",
+        type: "form",
+        ariaLabel: "Submit a mural request"
       }
     ]
   },

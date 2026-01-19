@@ -39,7 +39,7 @@ export default function SwimmingTurtles() {
     return (
     <>
       {/* INLINE CSS: Keyframe animations defined here */}
-        <style jsx global>{`
+      <style jsx>{`
         /* KEYFRAMES: Define the animation path */
         /* "swim" is the animation name we'll reference later */
         @keyframes swim {

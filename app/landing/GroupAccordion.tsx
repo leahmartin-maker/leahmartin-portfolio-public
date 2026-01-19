@@ -4,12 +4,6 @@
 // app/landing/GroupAccordion.tsx
 // Modal popup for grouped links, matching murals map style
 // Follows ARIA, modularity, and Tailwind standards
-//
-// Real World Context:
-// Companies like Slack, Notion, and Figma use this modal-based grouping pattern for their
-// contact/help links. It keeps the main interface clean while providing organized access
-// to multiple actions. The accessibility features (focus trapping, Escape to close, ARIA)
-// ensure users of all abilities can navigate effectively.
 
 import type { LinkGroup } from './cardLinks';
 import LinkButton from './LinkButton';
@@ -95,7 +89,7 @@ export default function GroupAccordion({ group }: Props) {
             <h2 className="text-5xl font-name text-sea-life/80 mb-4 text-center">{group.groupLabel}</h2>
             <div className="flex flex-col gap-3 w-full">
               {group.items.map(item => {
-                if (item.type === 'modal') {
+                if (item.type === 'form' && item.label === 'Community/Non-Profit') {
                   return (
                     <button
                       key={item.label}
@@ -111,10 +105,10 @@ export default function GroupAccordion({ group }: Props) {
                 return <LinkButton key={item.label} item={item} />;
               })}
             </div>
-            {/* Show mural submission form as a nested modal */}
+            {/* MuralSubmissionForm Modal */}
             {showMuralForm && (
-              <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/40">
-                <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-fadeIn">
+              <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/60">
+                <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative animate-fadeIn">
                   <button
                     className="absolute top-3 right-3 text-coral hover:text-sunset-yellow text-2xl font-bold focus:outline-none"
                     aria-label="Close mural submission form"
