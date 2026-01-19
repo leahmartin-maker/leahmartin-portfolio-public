@@ -1,16 +1,7 @@
-// app/landing/MuralSubmissionForm.tsx
-// Accessible, modular tabbed form for mural submissions
-// Follows all of Leah's rules: accessibility, modularity, industry standards, no slop
-//
-// Real World Context:
-// This tabbed form pattern is used by platforms like Airbnb, GitHub, and AWS for complex
-// multi-step applications. The keyboard navigation (arrow keys to switch tabs) and ARIA
-// attributes ensure accessibility compliance (WCAG 2.1 AA standard). Professional teams
-// use this to handle multiple related forms without overwhelming users or creating separate pages.
-
 "use client";
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
 import MuralApplicationForm, { MuralApplicationFormData } from './MuralApplicationForm';
+
 
 const TABS = [
   { label: 'Spring Mural Application', id: 'spring' },
