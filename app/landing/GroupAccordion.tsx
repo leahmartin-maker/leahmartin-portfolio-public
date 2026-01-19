@@ -4,9 +4,16 @@
 // app/landing/GroupAccordion.tsx
 // Modal popup for grouped links, matching murals map style
 // Follows ARIA, modularity, and Tailwind standards
+//
+// Real World Context:
+// Companies like Slack, Notion, and Figma use this modal-based grouping pattern for their
+// contact/help links. It keeps the main interface clean while providing organized access
+// to multiple actions. The accessibility features (focus trapping, Escape to close, ARIA)
+// ensure users of all abilities can navigate effectively.
 
 import type { LinkGroup } from './cardLinks';
 import LinkButton from './LinkButton';
+import MuralSubmissionForm from './MuralSubmissionForm';
 import { useState, useRef, useEffect } from 'react';
 
 interface Props {
@@ -15,6 +22,7 @@ interface Props {
 
 export default function GroupAccordion({ group }: Props) {
   const [open, setOpen] = useState(false);
+  const [showMuralForm, setShowMuralForm] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Trap focus in modal for accessibility
@@ -86,10 +94,39 @@ export default function GroupAccordion({ group }: Props) {
             </button>
             <h2 className="text-5xl font-name text-sea-life/80 mb-4 text-center">{group.groupLabel}</h2>
             <div className="flex flex-col gap-3 w-full">
-              {group.items.map(item => (
-                <LinkButton key={item.label} item={item} />
-              ))}
+              {group.items.map(item => {
+                if (item.type === 'modal') {
+                  return (
+                    <button
+                      key={item.label}
+                      className="block w-full text-center px-4 py-2 rounded bg-sunset-yellow/80 hover:bg-sunset-yellow/40 text-black/60 font-medium focus:outline-none transition"
+                      aria-label={item.ariaLabel || item.label}
+                      type="button"
+                      onClick={() => setShowMuralForm(true)}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                }
+                return <LinkButton key={item.label} item={item} />;
+              })}
             </div>
+            {/* Show mural submission form as a nested modal */}
+            {showMuralForm && (
+              <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/40">
+                <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-fadeIn">
+                  <button
+                    className="absolute top-3 right-3 text-coral hover:text-sunset-yellow text-2xl font-bold focus:outline-none"
+                    aria-label="Close mural submission form"
+                    onClick={() => setShowMuralForm(false)}
+                    tabIndex={0}
+                  >
+                    ×
+                  </button>
+                  <MuralSubmissionForm />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

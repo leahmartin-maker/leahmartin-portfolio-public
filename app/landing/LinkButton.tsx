@@ -1,6 +1,12 @@
 // app/landing/LinkButton.tsx
 // Accessible, styled button for individual links
 // Follows ARIA, modularity, and Tailwind standards
+//
+// Real World Context:
+// This component is a reusable link/button wrapper used in design systems (like Material Design,
+// Chakra UI, and Headless UI). It handles different states (link, button, download) in one place,
+// making it easy to update styling or behavior globally. Professional teams use this pattern
+// to avoid duplicating button logic across their application.
 
 import type { LinkItem } from './cardLinks';
 
