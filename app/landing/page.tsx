@@ -32,7 +32,7 @@ export default function LandingPage() {
           priority
         />
       </div>
-      <p className="text-xl text-black/80 mt-0 mb-6 text-center max-w-xl" aria-label="Artist, Developer, Conservationist">
+      <p className="text-2xl text-black/80 mt-0 mb-6 text-center max-w-xl font-king" aria-label="Artist, Developer, Conservationist">
         Artist • Developer • Conservationist
       </p>
       {/* Sea Turtle Link to Main Page */}
