@@ -92,7 +92,7 @@ export default function GroupAccordion({ group }: Props) {
             <div className="flex flex-col gap-3 w-full">
               {group.items.map(item => {
                 // Open mural form modal
-                if (item.type === 'form' && item.label === 'Community/Non-Profit') {
+                if (item.type === 'form' && item.label === 'Community & Non-Profit Applications') {
                   return (
                     <button
                       key={item.label}
@@ -106,7 +106,7 @@ export default function GroupAccordion({ group }: Props) {
                   );
                 }
                 // Open contact form modal
-                if (item.label === 'Contact Form') {
+                if (item.label === 'Contact Me about a New Project') {
                   return (
                     <button
                       key={item.label}

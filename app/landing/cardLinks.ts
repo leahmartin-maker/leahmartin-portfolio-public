@@ -25,13 +25,13 @@ export const cardLinkGroups: LinkGroup[] = [
     color: "bg-sea-life/50",
     items: [
       {
-        label: "Contact Form",
+        label: "Contact Me about a New Project",
         href: "/contact",
         type: "external",
         ariaLabel: "Open contact form to email Leah"
       },
       {
-        label: "Community/Non-Profit",
+        label: "Community & Non-Profit Applications",
         type: "form",
         ariaLabel: "Submit a mural request"
       }
@@ -59,8 +59,8 @@ export const cardLinkGroups: LinkGroup[] = [
     groupLabel: "Let's Keep in Touch",
     color: "bg-coral/80",
     items: [
-        { label: "Add to Contacts", href: "#", type: "download", ariaLabel: "Download Leah's contact card (coming soon)" },
-        { label: "Download Resume", href: "/resume/leah_resume.pdf", type: "download", ariaLabel: "Download Leah's resume" }
+        { label: "Add Me to Your Contacts", href: "#", type: "download", ariaLabel: "Download Leah's contact card (coming soon)" },
+        { label: "Download My Resume", href: "/resume/leah_resume.pdf", type: "download", ariaLabel: "Download Leah's resume" }
     ]
 }
 ];
