@@ -14,10 +14,6 @@ const nextConfig: NextConfig = {
                 key: 'Content-Type',
                 value: 'text/vcard; charset=utf-8',
               },
-              {
-                key: 'Content-Disposition',
-                value: 'attachment; filename="leah-martin-contact.vcf"',
-              },
             ],
           },
         ];
