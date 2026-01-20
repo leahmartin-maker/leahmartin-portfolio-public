@@ -8,7 +8,7 @@ export type LinkItem = {
   label: string;           // Button or link text
   href?: string;           // URL or mailto/tel (if applicable)
   icon?: React.ReactNode;  // Icon component (optional)
-  type?: 'form' | 'download' | 'external' | 'modal'; // For special actions
+  type?: 'form' | 'download' | 'external' | 'modal' | 'vcard'; // For special actions
   ariaLabel?: string;      // For accessibility
 };
 
@@ -59,7 +59,7 @@ export const cardLinkGroups: LinkGroup[] = [
     groupLabel: "Let's Keep in Touch",
     color: "bg-coral/80",
     items: [
-        { label: "Add Me to Your Contacts", href: "/leah-martin-contact.vcf", type: "download", ariaLabel: "Download Leah's contact card" },
+        { label: "Add Me to Your Contacts", href: "/leah-martin-contact.vcf", type: "vcard", ariaLabel: "Add Leah to your contacts" },
         { label: "Download My Resume-Coming Soon", href: "/resume/leah_resume.pdf", type: "download", ariaLabel: "Download Leah's resume" }
     ]
 }
