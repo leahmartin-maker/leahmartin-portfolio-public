@@ -117,8 +117,8 @@ export default function SwimmingTurtles() {
             <Image
             src="/images/turtle-pin.png"
             alt="Swimming turtle"
-            width={250}
-            height={250}
+            width={145}
+            height={145}
             style={{ objectFit: 'contain', transform: 'scaleX(-1)' }} // Flipped to face right
             />
         </div>
@@ -138,8 +138,8 @@ export default function SwimmingTurtles() {
             <Image
             src="/images/turtle-pin.png"
             alt="Swimming turtle"
-            width={230}
-            height={230}
+            width={150}
+            height={150}
             style={{ objectFit: 'contain', transform: 'scaleX(-1)' }} // Flipped to face right
             />
         </div>
@@ -159,8 +159,8 @@ export default function SwimmingTurtles() {
             <Image
             src="/images/turtle-pin.png"
             alt="Swimming turtle"
-            width={280}
-            height={280}
+            width={140}
+            height={140}
             style={{ objectFit: 'contain', transform: 'scaleX(-1)' }} // Flipped to face right
             />
         </div>

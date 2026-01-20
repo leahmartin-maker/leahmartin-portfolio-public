@@ -39,7 +39,7 @@ export default function LandingPage() {
       <a
         href="/"
         aria-label="Go to Leah Grundhauser's main page"
-        className="block mb-0 mx-auto w-72 h-72"
+        className="block mb-0 mx-auto w-72 h-72 ml-18"
       >
         <Image
           src="/images/turtle-pin.png"
