@@ -8,37 +8,49 @@ const TABS = [
   { label: 'Use It or Lose It', id: 'useit' },
 ];
 
+const createEmptyFormData = (): MuralApplicationFormData => ({
+  orgName: '',
+  contactName: '',
+  email: '',
+  phone: '',
+  location: '',
+  aboutOrg: '',
+  whyMural: '',
+  wallDetails: '',
+  timeline: '',
+  otherNotes: '',
+  authCheckbox: false,
+  agreeCheckbox: false,
+});
+
 export default function MuralSubmissionForm() {
   const [activeTab, setActiveTab] = useState('spring');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-  const [mediaFiles, setMediaFiles] = useState<File[]>([]);
-  const [mediaPreviews, setMediaPreviews] = useState<string[]>([]);
-  const [formData, setFormData] = useState<MuralApplicationFormData>({
-    orgName: '',
-    contactName: '',
-    email: '',
-    phone: '',
-    location: '',
-    aboutOrg: '',
-    whyMural: '',
-    wallDetails: '',
-    timeline: '',
-    otherNotes: '',
-    authCheckbox: false,
-    agreeCheckbox: false,
-  });
+  const [springMediaFiles, setSpringMediaFiles] = useState<File[]>([]);
+  const [springMediaPreviews, setSpringMediaPreviews] = useState<string[]>([]);
+  const [useitMediaFiles, setUseitMediaFiles] = useState<File[]>([]);
+  const [useitMediaPreviews, setUseitMediaPreviews] = useState<string[]>([]);
+  const [springFormData, setSpringFormData] = useState<MuralApplicationFormData>(createEmptyFormData());
+  const [useitFormData, setUseitFormData] = useState<MuralApplicationFormData>(createEmptyFormData());
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Get current form data based on active tab
+  const currentFormData = activeTab === 'spring' ? springFormData : useitFormData;
+  const currentMediaFiles = activeTab === 'spring' ? springMediaFiles : useitMediaFiles;
+  const currentMediaPreviews = activeTab === 'spring' ? springMediaPreviews : useitMediaPreviews;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
+    const updateFunction = activeTab === 'spring' ? setSpringFormData : setUseitFormData;
+    
     if (type === 'checkbox') {
-      setFormData(prev => ({
+      updateFunction(prev => ({
         ...prev,
         [name]: (e.target as HTMLInputElement).checked,
       }));
     } else {
-      setFormData(prev => ({
+      updateFunction(prev => ({
         ...prev,
         [name]: value,
       }));
@@ -47,15 +59,27 @@ export default function MuralSubmissionForm() {
 
   const handleMediaChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    setMediaFiles(files);
     const previews = files.map(file => URL.createObjectURL(file));
-    setMediaPreviews(previews);
+    
+    if (activeTab === 'spring') {
+      setSpringMediaFiles(files);
+      setSpringMediaPreviews(previews);
+    } else {
+      setUseitMediaFiles(files);
+      setUseitMediaPreviews(previews);
+    }
   };
 
   const removeMedia = (idx: number) => {
-    URL.revokeObjectURL(mediaPreviews[idx]);
-    setMediaFiles(prev => prev.filter((_, i) => i !== idx));
-    setMediaPreviews(prev => prev.filter((_, i) => i !== idx));
+    if (activeTab === 'spring') {
+      URL.revokeObjectURL(springMediaPreviews[idx]);
+      setSpringMediaFiles(prev => prev.filter((_, i) => i !== idx));
+      setSpringMediaPreviews(prev => prev.filter((_, i) => i !== idx));
+    } else {
+      URL.revokeObjectURL(useitMediaPreviews[idx]);
+      setUseitMediaFiles(prev => prev.filter((_, i) => i !== idx));
+      setUseitMediaPreviews(prev => prev.filter((_, i) => i !== idx));
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -65,13 +89,16 @@ export default function MuralSubmissionForm() {
 
     try {
       const form = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
+      const submitFormData = activeTab === 'spring' ? springFormData : useitFormData;
+      const submitMediaFiles = activeTab === 'spring' ? springMediaFiles : useitMediaFiles;
+      
+      Object.entries(submitFormData).forEach(([key, value]) => {
         form.append(key, String(value));
       });
-      mediaFiles.forEach((file, idx) => {
+      submitMediaFiles.forEach((file, idx) => {
         form.append(`media_${idx}`, file);
       });
-      form.append('mediaCount', String(mediaFiles.length));
+      form.append('mediaCount', String(submitMediaFiles.length));
       form.append('submissionType', activeTab);
 
       const response = await fetch('/api/mural-submission', {
@@ -81,22 +108,15 @@ export default function MuralSubmissionForm() {
 
       if (response.ok) {
         setStatus('success');
-        setFormData({
-          orgName: '',
-          contactName: '',
-          email: '',
-          phone: '',
-          location: '',
-          aboutOrg: '',
-          whyMural: '',
-          wallDetails: '',
-          timeline: '',
-          otherNotes: '',
-          authCheckbox: false,
-          agreeCheckbox: false,
-        });
-        setMediaFiles([]);
-        setMediaPreviews([]);
+        if (activeTab === 'spring') {
+          setSpringFormData(createEmptyFormData());
+          setSpringMediaFiles([]);
+          setSpringMediaPreviews([]);
+        } else {
+          setUseitFormData(createEmptyFormData());
+          setUseitMediaFiles([]);
+          setUseitMediaPreviews([]);
+        }
       } else {
         const data = await response.json();
         setStatus('error');
@@ -150,9 +170,9 @@ export default function MuralSubmissionForm() {
         {activeTab === 'spring' && (
           <div id="panel-spring" role="tabpanel" aria-labelledby="tab-spring">
             <MuralApplicationForm
-              formData={formData}
-              mediaFiles={mediaFiles}
-              mediaPreviews={mediaPreviews}
+              formData={springFormData}
+              mediaFiles={springMediaFiles}
+              mediaPreviews={springMediaPreviews}
               status={status}
               errorMessage={errorMessage}
               onInputChange={handleInputChange}
@@ -183,7 +203,7 @@ export default function MuralSubmissionForm() {
                       type="checkbox"
                       id="authCheckbox"
                       name="authCheckbox"
-                      checked={formData.authCheckbox as boolean}
+                      checked={springFormData.authCheckbox as boolean}
                       onChange={handleInputChange}
                       required
                       aria-label="I am authorized to submit this application."
@@ -198,7 +218,7 @@ export default function MuralSubmissionForm() {
                       type="checkbox"
                       id="agreeCheckbox"
                       name="agreeCheckbox"
-                      checked={formData.agreeCheckbox as boolean}
+                      checked={springFormData.agreeCheckbox as boolean}
                       onChange={handleInputChange}
                       required
                       aria-label="I agree to the terms and conditions."
@@ -218,7 +238,7 @@ export default function MuralSubmissionForm() {
                     Thank you for submitting your Spring Mural Application. We've received your submission and will review it carefully.
                   </p>
                   <p className="text-sm text-gray-500 mb-6">
-                    A confirmation email has been sent to <strong>{formData.email as string}</strong>.
+                    A confirmation email has been sent to <strong>{springFormData.email as string}</strong>.
                   </p>
                   <button
                     onClick={() => setStatus('idle')}
@@ -234,9 +254,9 @@ export default function MuralSubmissionForm() {
         {activeTab === 'useit' && (
           <div id="panel-useit" role="tabpanel" aria-labelledby="tab-useit">
             <MuralApplicationForm
-              formData={formData}
-              mediaFiles={mediaFiles}
-              mediaPreviews={mediaPreviews}
+              formData={useitFormData}
+              mediaFiles={useitMediaFiles}
+              mediaPreviews={useitMediaPreviews}
               status={status}
               errorMessage={errorMessage}
               onInputChange={handleInputChange}
@@ -264,7 +284,7 @@ export default function MuralSubmissionForm() {
                       type="checkbox"
                       id="authCheckbox-useit"
                       name="authCheckbox"
-                      checked={formData.authCheckbox as boolean}
+                      checked={useitFormData.authCheckbox as boolean}
                       onChange={handleInputChange}
                       required
                       aria-label="I am authorized to submit this application."
@@ -279,7 +299,7 @@ export default function MuralSubmissionForm() {
                       type="checkbox"
                       id="agreeCheckbox-useit"
                       name="agreeCheckbox"
-                      checked={formData.agreeCheckbox as boolean}
+                      checked={useitFormData.agreeCheckbox as boolean}
                       onChange={handleInputChange}
                       required
                       aria-label="I agree to the terms and conditions."
@@ -299,7 +319,7 @@ export default function MuralSubmissionForm() {
                     Thank you for submitting your Use It or Lose It Application. We'll review your request soon.
                   </p>
                   <p className="text-sm text-gray-500 mb-6">
-                    A confirmation email has been sent to <strong>{formData.email as string}</strong>.
+                    A confirmation email has been sent to <strong>{useitFormData.email as string}</strong>.
                   </p>
                   <button
                     onClick={() => setStatus('idle')}
