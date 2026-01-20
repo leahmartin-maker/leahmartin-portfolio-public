@@ -1,6 +1,0 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Skatepark marker">
-  <rect x="6" y="14" width="20" height="4" rx="2" fill="#222" stroke="#00c5cd" stroke-width="2"/>
-  <circle cx="10" cy="24" r="2.5" fill="#FFD89C" stroke="#222" stroke-width="1.5"/>
-  <circle cx="22" cy="24" r="2.5" fill="#FFD89C" stroke="#222" stroke-width="1.5"/>
-  <ellipse cx="16" cy="16" rx="8" ry="2" fill="#f0bba5" opacity="0.2"/>
-</svg>
