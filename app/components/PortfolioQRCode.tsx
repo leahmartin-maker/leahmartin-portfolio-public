@@ -2,7 +2,20 @@
 // QR code component for Leah's portfolio site
 // Real World Context: Used for business cards, event materials, and quick sharing in tech companies.
 
+
 import { QRCodeSVG } from 'qrcode.react';
+
+// vCard string for Leah Grundhauser (for reference, used in download button on landing page)
+const vCard = [
+  'BEGIN:VCARD',
+  'VERSION:3.0',
+  'N:Grundhauser;Leah;;;',
+  'FN:Leah Grundhauser',
+  'EMAIL:artbyleahmartin@gmail.com',
+  'TEL;TYPE=cell:361-453-9120',
+  'URL:https://leahmartin-portfolio-public.vercel.app/landing',
+  'END:VCARD'
+].join('\n');
 
 export default function PortfolioQRCode() {
   return (

@@ -59,7 +59,7 @@ export const cardLinkGroups: LinkGroup[] = [
     groupLabel: "Let's Keep in Touch",
     color: "bg-coral/80",
     items: [
-        { label: "Add Me to Your Contacts", href: "#", type: "download", ariaLabel: "Download Leah's contact card (coming soon)" },
+        { label: "Add Me to Your Contacts", href: "/leah-martin-contact.vcf", type: "download", ariaLabel: "Download Leah's contact card" },
         { label: "Download My Resume-Coming Soon", href: "/resume/leah_resume.pdf", type: "download", ariaLabel: "Download Leah's resume" }
     ]
 }
