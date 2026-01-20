@@ -18,24 +18,16 @@ const projects = [
       "Sea Turtle Migration is a 3D interactive experience where you choose between three different sea turtles and swim through the ocean to reach their nesting sites. Along the journey, you’ll learn about each species’ predators, environment, migration routes, and real-world data. All 3D assets and environments are custom-built in Blender. This project is in development, with a focus on educational storytelling and conservation.", // Edit this description
     image: "/images/blenderproject.png", // Replace with your image path
     alt: "Sea Turtle Migration project screenshot", // Edit alt text for accessibility
-    github: "https://github.com/leahmartin-maker", // Replace with your repo or file link
-    demo: "#" // Replace with your demo link
+    github: "https://github.com/leahmartin-maker/leahmartin-portfolio-public/blob/main/app/turtle-explorer/page.tsx", // Replace with your repo or file link
+    
   },
   {
-    title: "Project Title #3", // Edit this title
-    description: "Short description of your project, tech used, and goals.", // Edit this description
-    image: "/images/projects/placeholder.png", // Replace with your image path
-    alt: "Placeholder project screenshot", // Edit alt text for accessibility
-    github: "https://github.com/leahmartin-maker", // Replace with your repo or file link
-    demo: "#" // Replace with your demo link
-  },
-  {
-    title: "Project Title #4", // Edit this title
-    description: "Short description of your project, tech used, and goals.", // Edit this description
-    image: "/images/projects/placeholder.png", // Replace with your image path
-    alt: "Placeholder project screenshot", // Edit alt text for accessibility
-    github: "https://github.com/leahmartin-maker", // Replace with your repo or file link
-    demo: "#" // Replace with your demo link
+    title: "Personal Portfolio Website", // Edit this title
+    description: "A custom-built portfolio website showcasing my art, coding projects, and conservation work. Built with Next.js and React, it features responsive design, accessible navigation, and dynamic project listings. This site demonstrates my skills in frontend development, accessibility, and deployment, and serves as a central hub for my creative and technical journey", // Edit this description
+    image: "/images/Screenshotmainsite.png", // Replace with your image path
+    alt: "Personal Portfolio Website screenshot", // Edit alt text for accessibility
+    github: "https://github.com/leahmartin-maker/leahmartin-portfolio-public", // Replace with your repo or file link
+    demo: "https://leahmartin-portfolio-public.vercel.app/" // Replace with your demo link
   },
 ];
 
