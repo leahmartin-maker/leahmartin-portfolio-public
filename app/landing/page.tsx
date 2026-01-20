@@ -1,3 +1,4 @@
+"use client";
 // app/landing/page.tsx
 // Main landing/business card page showcasing Leah's work, services, and call-to-actions
 // Follows Leah's standards: A11y, modularity, clean code, no slop
@@ -10,13 +11,16 @@
 // makes it easy to add/remove actions without touching component code.
 
 
+import { useState } from 'react';
 import { cardLinkGroups, blogSignup } from './cardLinks';
 import GroupAccordion from './GroupAccordion';
 import BlogSignup from './BlogSignup';
 import SwimmingTurtles from '../components/SwimmingTurtles';
+import ContactForm from '../components/ContactForm';
 import Image from 'next/image';
 
 export default function LandingPage() {
+  const [showContact, setShowContact] = useState(false);
   return (
     <main className="min-h-screen flex flex-col items-center justify-start pt-8 px-4 bg-gradient-to-r from-sea-life/45 via-sunset-yellow/50 to-coral/70">
       {/* Brand Animation */}
@@ -41,6 +45,8 @@ export default function LandingPage() {
       </section>
       {/* Blog Signup */}
       <BlogSignup {...blogSignup} />
+      {/* Contact Modal */}
+      {showContact && <ContactForm onClose={() => setShowContact(false)} />}
     </main>
   );
 }

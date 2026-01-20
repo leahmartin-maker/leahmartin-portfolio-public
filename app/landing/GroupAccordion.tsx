@@ -7,6 +7,7 @@
 
 import type { LinkGroup } from './cardLinks';
 import LinkButton from './LinkButton';
+import ContactForm from '../components/ContactForm';
 import MuralSubmissionForm from './MuralSubmissionForm';
 import { useState, useRef, useEffect } from 'react';
 
@@ -17,6 +18,7 @@ interface Props {
 export default function GroupAccordion({ group }: Props) {
   const [open, setOpen] = useState(false);
   const [showMuralForm, setShowMuralForm] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Trap focus in modal for accessibility
@@ -89,6 +91,7 @@ export default function GroupAccordion({ group }: Props) {
             <h2 className="text-5xl font-name text-sea-life/80 mb-4 text-center">{group.groupLabel}</h2>
             <div className="flex flex-col gap-3 w-full">
               {group.items.map(item => {
+                // Open mural form modal
                 if (item.type === 'form' && item.label === 'Community/Non-Profit') {
                   return (
                     <button
@@ -97,6 +100,20 @@ export default function GroupAccordion({ group }: Props) {
                       aria-label={item.ariaLabel || item.label}
                       type="button"
                       onClick={() => setShowMuralForm(true)}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                }
+                // Open contact form modal
+                if (item.label === 'Contact Form') {
+                  return (
+                    <button
+                      key={item.label}
+                      className="block w-full text-center px-4 py-2 rounded bg-sunset-yellow/80 hover:bg-sunset-yellow/40 text-black/60 font-medium focus:outline-none transition"
+                      aria-label={item.ariaLabel || item.label}
+                      type="button"
+                      onClick={() => setShowContactForm(true)}
                     >
                       {item.label}
                     </button>
@@ -120,6 +137,10 @@ export default function GroupAccordion({ group }: Props) {
                   <MuralSubmissionForm />
                 </div>
               </div>
+            )}
+            {/* ContactForm Modal */}
+            {showContactForm && (
+              <ContactForm onClose={() => setShowContactForm(false)} />
             )}
           </div>
         </div>
