@@ -41,7 +41,7 @@ export default function LandingPage() {
         aria-label="Go to Leah Grundhauser's main page"
         className="block mb-4 mx-auto"
       >
-        <div className="glow-ring inline-block p-4">
+        <div className="flex flex-col items-center gap-2 turtle-mobile">
           <Image
             src="/images/turtle-pin.png"
             alt="Sea turtle illustration by Leah Grundhauser"
