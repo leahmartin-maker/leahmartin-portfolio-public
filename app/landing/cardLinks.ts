@@ -1,6 +1,12 @@
 // cardLinks.ts
 // Data structure for Leah's digital business card landing page (Landing)
 // Modular, accessible, and ready for dynamic content
+//
+// Real World Context:
+// Separating data from component logic is a professional pattern used across agencies.
+// This allows non-developers (or a CMS) to edit links, groups, and labels without touching
+// React code. In production, this data could come from a database or Contentful CMS.
+// The type system ensures consistency across all link variants.
 
 import { color } from "three/tsl";
 

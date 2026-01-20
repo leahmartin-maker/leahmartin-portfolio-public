@@ -2,6 +2,12 @@
 // app/landing/LinkButton.tsx
 // Accessible, styled button for individual links
 // Follows ARIA, modularity, and Tailwind standards
+//
+// Real World Context:
+// Individual link buttons are reusable components in digital business cards, navigation menus,
+// and call-to-action sections. This component abstracts link behavior (external, download, vcard)
+// so the parent (GroupAccordion) doesn't need conditional rendering logic. This pattern scales
+// well in agency websites and SaaS landing pages where buttons have varied behaviors.
 
 import type { LinkItem } from './cardLinks';
 
