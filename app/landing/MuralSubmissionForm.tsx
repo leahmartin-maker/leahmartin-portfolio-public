@@ -122,7 +122,11 @@ export default function MuralSubmissionForm() {
   }
 
   return (
-    <section aria-label="Mural Submission" className="w-full max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 mt-8">
+    <section
+      aria-label="Mural Submission"
+      className="w-full max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 mt-8 overflow-y-auto max-h-[90vh] min-h-[60vh] flex flex-col justify-between"
+      style={{ boxSizing: 'border-box' }}
+    >
       {/* Tab Navigation */}
       <div role="tablist" aria-label="Submission Type" className="flex mb-6 border-b-2 border-sea-life/30">
         {TABS.map((tab, idx) => (
@@ -160,18 +164,19 @@ export default function MuralSubmissionForm() {
               detailsText={
                 <>
                   <p className="text-gray-600 text-sm mb-2" aria-live="polite">
-                    Our <strong>Spring Mural Application</strong> is now open exclusively to non-profit organizations. As part of my initiative to provide one pro-bono project per quarter, I am accepting proposals for a free mural until <strong>March 1, 2026</strong>.<br /><br />
-                    The selected partner will be notified by <strong>March 30, 2026</strong>. Please use the form below to share your organization's needs.
-                  </p>
-                  <p className="text-xs text-gray-500 mb-2 ml-1">
-                    * While the design and labor are free, the organization may be responsible for minimal costs related to travel, materials, or equipment rentals if required.
+                    Our <strong>Spring Mural Application</strong> is now open exclusively to non-profit organizations looking to enhance their impact through creative storytelling. As part of my initiative to provide one pro-bono project per quarter, I am accepting proposals for a free mural, AR experience, website, or specialized digital feature until the deadline of <strong>March 1, 2026</strong>. While the design and labor for the project are free of charge, please note that the organization may be responsible for minimal costs related to travel, materials, or specialized equipment rentals if required.<br /><br />
+                    The selected partner will be notified by <strong>March 30, 2026</strong>, and all other applicants will receive an email detailing alternative ways we might work together. I encourage you to explore my portfolio or follow my social media to see examples of my work and spark ideas for your own mission. Please use the form below to share what kind of non-profit you are and how a custom project can help fulfill your specific business needs.
                   </p>
                 </>
               }
               legalText={
                 <div className="bg-gray-50 border border-gray-200 rounded p-4 mb-2">
                   <p className="text-xs text-gray-500 mb-2">
-                    By submitting, you certify you are an authorized representative of a registered non-profit. Applications are reviewed quarterly. One project will be selected per cycle.
+                    <strong>By submitting this application:</strong> you certify that you are an authorized representative of the applicant organization.<br />
+                    <strong>Selection Process:</strong> Submissions are reviewed quarterly; applications must be received by the 1st of the final month of the quarter to be considered for the current cycle. One project will be selected per quarter at the sole discretion of [Your Business Name] based on site viability and community impact, with the recipient notified by the 15th of that month.<br />
+                    <strong>Project Scope:</strong> The "free" designation applies to [Artist Labor/Design Fees]; the selected organization may be responsible for specific site costs such as wall preparation or equipment rentals.<br />
+                    <strong>Non-Selection & Bidding:</strong> If your project is not selected for the free mural, you are encouraged to re-apply for the following quarter. By submitting, you acknowledge that you will receive a professional service bid for your project for immediate booking, as well as information regarding our "Use It or Lose It" Program, which allows organizations to utilize remaining annual budget or grants for mural projects before year-end deadlines.<br />
+                    <strong>Permissions:</strong> You grant [Your Business Name] permission to use submitted site descriptions and photos for promotional and evaluation purposes. This program is governed by the laws of the State of Texas and may be modified or canceled at the artist’s discretion due to safety or scheduling constraints.
                   </p>
                   <div className="flex items-start mb-2">
                     <input
@@ -250,7 +255,7 @@ export default function MuralSubmissionForm() {
               legalText={
                 <div className="bg-gray-50 border border-gray-200 rounded p-4 mb-2">
                   <p className="text-xs text-gray-500 mb-2">
-                    By submitting, you certify you are an authorized representative. Applications are reviewed on a rolling basis.
+                    By submitting, you certify you are an authorized representative of a registered Non-profit organization. Applications are reviewed on a rolling basis.
                   </p>
                   <div className="flex items-start mb-2">
                     <input

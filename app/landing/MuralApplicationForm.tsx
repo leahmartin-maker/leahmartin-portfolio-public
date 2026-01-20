@@ -57,7 +57,7 @@ export default function MuralApplicationForm({
         </div>
       ) : (
         <form
-          className="space-y-4"
+          className="space-y-1"
           aria-label={ariaLabel}
           autoComplete="off"
           onSubmit={onSubmit}

@@ -1,6 +1,13 @@
 // app/landing/page.tsx
-// Landing page for Leah's digital business card
-// Follows accessibility, modularity, and Tailwind standards
+// Main landing/business card page showcasing Leah's work, services, and call-to-actions
+// Follows Leah's standards: A11y, modularity, clean code, no slop
+//
+// Real World Context:
+// Digital business card landing pages (like this) serve as entry points for portfolios,
+// agencies, and freelancers. They typically feature a hero section, grouped CTAs, and
+// social links. This component uses Next.js Image optimization for performance and
+// accessible semantic HTML for screen readers. The modular structure (cardLinkGroups)
+// makes it easy to add/remove actions without touching component code.
 
 
 import { cardLinkGroups, blogSignup } from './cardLinks';
@@ -23,8 +30,8 @@ export default function LandingPage() {
           priority
         />
       </div>
-      <p className="text-xl text-sea-life mb-8 text-center max-w-xl" aria-label="Artist, Developer, Conservationist">
-        Muralist • Developer • Conservationist
+      <p className="text-2xl text-black mt-0 mb-6 text-center max-w-xl" aria-label="Artist, Developer, Conservationist">
+        Artist • Developer • Conservationist
       </p>
       {/* Link Groups */}
       <section className="w-full max-w-md flex flex-col gap-4" aria-label="Quick Actions">
