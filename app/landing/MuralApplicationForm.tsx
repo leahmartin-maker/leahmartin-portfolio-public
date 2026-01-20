@@ -16,6 +16,20 @@ export interface MuralApplicationFormData {
   agreeCheckbox: boolean;
 }
 
+// Field labels that can be customized per form
+export interface FieldLabels {
+  orgName: string;
+  contactName: string;
+  email: string;
+  phone: string;
+  location: string;
+  aboutOrg: string;
+  whyMural: string;
+  wallDetails: string;
+  timeline: string;
+  otherNotes: string;
+}
+
 export interface MuralApplicationFormProps {
   formData: MuralApplicationFormData;
   mediaFiles: File[];
@@ -31,6 +45,7 @@ export interface MuralApplicationFormProps {
   successText: React.ReactNode;
   submitLabel: string;
   ariaLabel: string;
+  fieldLabels: FieldLabels;
 }
 
 export default function MuralApplicationForm({
@@ -48,6 +63,7 @@ export default function MuralApplicationForm({
   successText,
   submitLabel,
   ariaLabel,
+  fieldLabels,
 }: MuralApplicationFormProps) {
   return (
     <>
@@ -66,7 +82,7 @@ export default function MuralApplicationForm({
           {detailsText}
           <div>
             <label htmlFor="orgName" className="block text-sm font-medium text-gray-700">
-              Organization or Business Name
+              {fieldLabels.orgName}
             </label>
             <input
               type="text"
@@ -81,7 +97,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="contactName" className="block text-sm font-medium text-gray-700">
-              Contact Name
+              {fieldLabels.contactName}
             </label>
             <input
               type="text"
@@ -96,7 +112,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email Address
+              {fieldLabels.email}
             </label>
             <input
               type="email"
@@ -111,7 +127,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-              Phone Number
+              {fieldLabels.phone}
             </label>
             <input
               type="tel"
@@ -125,7 +141,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-              Location
+              {fieldLabels.location}
             </label>
             <input
               type="text"
@@ -140,7 +156,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="aboutOrg" className="block text-sm font-medium text-gray-700">
-              How does your organization contribute to the community?
+              {fieldLabels.aboutOrg}
             </label>
             <textarea
               id="aboutOrg"
@@ -155,7 +171,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="whyMural" className="block text-sm font-medium text-gray-700">
-              How would my services be meaningful for you?
+              {fieldLabels.whyMural}
             </label>
             <textarea
               id="whyMural"
@@ -170,7 +186,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="wallDetails" className="block text-sm font-medium text-gray-700">
-              Surface Details (size, texture, condition, etc.)
+              {fieldLabels.wallDetails}
             </label>
             <textarea
               id="wallDetails"
@@ -185,7 +201,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="timeline" className="block text-sm font-medium text-gray-700">
-              Preferred Start Date/Timeline
+              {fieldLabels.timeline}
             </label>
             <input
               type="text"
@@ -241,7 +257,7 @@ export default function MuralApplicationForm({
           </div>
           <div>
             <label htmlFor="otherNotes" className="block text-sm font-medium text-gray-700">
-              Is there anything else you'd like to share?
+              {fieldLabels.otherNotes}
             </label>
             <textarea
               id="otherNotes"

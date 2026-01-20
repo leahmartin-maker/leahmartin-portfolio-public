@@ -1,12 +1,40 @@
 "use client";
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
-import MuralApplicationForm, { MuralApplicationFormData } from './MuralApplicationForm';
+import MuralApplicationForm, { MuralApplicationFormData, FieldLabels } from './MuralApplicationForm';
 
 
 const TABS = [
   { label: 'Spring Mural Application', id: 'spring' },
   { label: 'Use It or Lose It', id: 'useit' },
 ];
+
+// Field labels for Spring Mural Application
+const SPRING_FIELD_LABELS: FieldLabels = {
+  orgName: 'Organization or Business Name',
+  contactName: 'Contact Name',
+  email: 'Email Address',
+  phone: 'Phone Number',
+  location: 'Location',
+  aboutOrg: 'How does your organization contribute to the community?',
+  whyMural: 'How would my services make an impact for your organization?',
+  wallDetails: 'Surface Details (size, texture, condition, etc.)',
+  timeline: 'Preferred Start Date/Timeline',
+  otherNotes: 'Is there anything else you\'d like to share?',
+};
+
+// Field labels for Use It or Lose It
+const USEIT_FIELD_LABELS: FieldLabels = {
+  orgName: 'Organization or Business Name',
+  contactName: 'Contact Name',
+  email: 'Email Address',
+  phone: 'Phone Number',
+  location: 'Project Location',
+  aboutOrg: 'What is your project idea?',
+  whyMural: 'What is your budget?',
+  wallDetails: 'Describe your project space (size, texture, condition, etc.)',
+  timeline: 'When do you need this project completed?',
+  otherNotes: 'Any additional information?',
+};
 
 const createEmptyFormData = (): MuralApplicationFormData => ({
   orgName: '',
@@ -181,6 +209,7 @@ export default function MuralSubmissionForm() {
               onSubmit={handleSubmit}
               ariaLabel="Spring Mural Application Form"
               submitLabel="Submit Application"
+              fieldLabels={SPRING_FIELD_LABELS}
               detailsText={
                 <>
                   <p className="text-gray-600 text-sm mb-2" aria-live="polite">
@@ -265,6 +294,7 @@ export default function MuralSubmissionForm() {
               onSubmit={handleSubmit}
               ariaLabel="Use It or Lose It Application Form"
               submitLabel="Submit Application"
+              fieldLabels={USEIT_FIELD_LABELS}
               detailsText={
                 <>
                   <p className="text-gray-600 text-sm mb-4" aria-live="polite">
