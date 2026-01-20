@@ -10,24 +10,11 @@ interface Props {
 }
 
 export default function LinkButton({ item }: Props) {
-  // Handle vCard with proper MIME type via data URI
+  // Handle vCard - simple link with proper file
   if (item.type === 'vcard') {
-    const vCardData = `BEGIN:VCARD
-VERSION:3.0
-N:Grundhauser;Leah;;;
-FN:Leah Grundhauser
-EMAIL:artbyleahmartin@gmail.com
-TEL;TYPE=cell:361-453-9120
-URL:https://leahmartin-portfolio-public.vercel.app/landing
-END:VCARD`;
-    
-    // Encode to data URI
-    const encodedData = encodeURIComponent(vCardData);
-    const dataUri = `data:text/vcard;charset=utf-8,${encodedData}`;
-    
     return (
       <a
-        href={dataUri}
+        href="/leah-martin-contact.vcf"
         className="block w-full text-center px-4 py-2 rounded bg-sunset-yellow/80 hover:bg-sunset-yellow/40 text-black/60 font-medium focus:outline-none transition"
         aria-label={item.ariaLabel || item.label}
       >
