@@ -247,8 +247,10 @@ export default function MuralSubmissionForm() {
               submitLabel="Submit Application"
               detailsText={
                 <>
-                  <p className="text-gray-600 text-sm mb-2" aria-live="polite">
-                    The <strong>Use It or Lose It Application</strong> is now open. Use this form to request a mural project to help you utilize remaining budget or grants before year-end deadlines.
+                  <p className="text-gray-600 text-sm mb-4" aria-live="polite">
+                    Whether you’re looking to revitalize a physical space or dominate the digital landscape, this is your opportunity to invest in a legacy that works for you 24/7.<br />
+                    From custom murals and high-performance websites to interactive AR experiences that bring your brand to life digitally, I specialize in making your vision a reality. My goal is to make this process seamless for you: simply let me know your available fund amount, and we will tailor a high-impact project that fits perfectly within your budget.<br />
+                    <strong>Don’t let your hard-earned funding disappear—let's use it to create something unforgettable.</strong> Click the link below to share your goals, and let’s get your project on the 2026 production calendar!
                   </p>
                 </>
               }
