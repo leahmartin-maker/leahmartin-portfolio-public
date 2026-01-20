@@ -51,7 +51,7 @@ export const cardLinkGroups: LinkGroup[] = [
     groupLabel: "Let's Make Change",
     color: "bg-sea-life/50",
     items: [
-        { label: "Show Your Support", href: "#", ariaLabel: "Support Leah on Buy Me a Coffee (coming soon)" },
+        { label: "Show Your Support-Coming Soon", href: "#", ariaLabel: "Support Leah on Buy Me a Coffee (coming soon)" },
 
     ]
   },
@@ -60,7 +60,7 @@ export const cardLinkGroups: LinkGroup[] = [
     color: "bg-coral/80",
     items: [
         { label: "Add Me to Your Contacts", href: "#", type: "download", ariaLabel: "Download Leah's contact card (coming soon)" },
-        { label: "Download My Resume", href: "/resume/leah_resume.pdf", type: "download", ariaLabel: "Download Leah's resume" }
+        { label: "Download My Resume-Coming Soon", href: "/resume/leah_resume.pdf", type: "download", ariaLabel: "Download Leah's resume" }
     ]
 }
 ];

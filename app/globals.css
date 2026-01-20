@@ -252,3 +252,64 @@
   
   /* Bubbles 7 and 8 hidden on mobile via "hidden lg:block" class */
 }
+
+/* ============================================
+    TURTLE CLIP-PATH - Landing Page
+   ============================================ */
+/* Custom clip-path that follows turtle outline
+   Coordinates are in percentages for scalability
+   Approximates a sea turtle viewed from above */
+.turtle-clip {
+  clip-path: polygon(
+    /* Head - top center */
+    50% 0%,
+    60% 5%,
+    65% 10%,
+    65% 18%,
+    /* Right flipper */
+    95% 25%,
+    100% 35%,
+    98% 45%,
+    /* Right shell */
+    85% 60%,
+    90% 75%,
+    80% 85%,
+    /* Tail - bottom */
+    50% 100%,
+    /* Left tail area */
+    20% 85%,
+    10% 75%,
+    15% 60%,
+    /* Left flipper */
+    2% 45%,
+    0% 35%,
+    5% 25%,
+    /* Left shell */
+    35% 18%,
+    35% 10%,
+    40% 5%
+  );
+}
+
+/* ============================================
+    ANIMATED GLOW RING - Landing Page Mobile
+   ============================================ */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(240, 187, 165, 0.7), 0 0 40px rgba(240, 187, 165, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(240, 187, 165, 1), 0 0 60px rgba(240, 187, 165, 0.7);
+  }
+}
+
+.glow-ring {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+  border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+  .glow-ring {
+    animation: none !important;
+  }
+}

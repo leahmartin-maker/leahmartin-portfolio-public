@@ -23,7 +23,7 @@ export default function LandingPage() {
   const [showContact, setShowContact] = useState(false);
   return (
     <main className="min-h-screen flex flex-col items-center justify-start pt-8 px-4 bg-gradient-to-r from-sea-life/45 via-sunset-yellow/50 to-coral/70 pb-8 md:pb-0">
-      <div className="relative w-full max-w-[500px] h-60 mb-0 mx-auto">
+      <div className="relative w-full max-w-[500px] h-60 -mb-12 mx-auto">
         <Image
           src="/images/grundhausersignature.png"
           alt="Leah Grundhauser signature"
@@ -32,26 +32,28 @@ export default function LandingPage() {
           priority
         />
       </div>
-      <p className="text-xl text-black/80 mt-0 mb-2 text-center max-w-xl" aria-label="Artist, Developer, Conservationist">
+      <p className="text-xl text-black/80 mt-0 mb-6 text-center max-w-xl" aria-label="Artist, Developer, Conservationist">
         Artist • Developer • Conservationist
       </p>
       {/* Sea Turtle Link to Main Page */}
       <a
         href="/"
         aria-label="Go to Leah Grundhauser's main page"
-        className="block mb-0 mx-auto w-72 h-72 ml-18"
+        className="block mb-4 mx-auto"
       >
-        <Image
-          src="/images/turtle-pin.png"
-          alt="Sea turtle illustration by Leah Grundhauser"
-          width={225}
-          height={225}
-          className="object-contain object-center drop-shadow-lg hover:scale-105 transition-transform duration-200 bg-transparent"
-          priority
-        />
+        <div className="glow-ring inline-block p-4">
+          <Image
+            src="/images/turtle-pin.png"
+            alt="Sea turtle illustration by Leah Grundhauser"
+            width={120}
+            height={120}
+            className="object-contain object-center bg-transparent cursor-pointer md:drop-shadow-lg md:hover:drop-shadow-2xl md:hover:scale-110 md:transition-all md:duration-300"
+            priority
+          />
+        </div>
       </a>
       {/* Link Groups */}
-        <section className="w-full max-w-md flex flex-col gap-4 -mt-26" aria-label="Quick Actions">
+      <section className="w-full max-w-md flex flex-col gap-4" aria-label="Quick Actions">
         {cardLinkGroups.map(group => (
           <GroupAccordion key={group.groupLabel} group={group} />
         ))}
