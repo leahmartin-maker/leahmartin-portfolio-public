@@ -4,14 +4,17 @@ import FloatingBubbles from '../components/FloatingBubbles';
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-stucco">
+    // Main wrapper for About page. aria-label helps screen readers identify the page purpose.
+    <div className="min-h-screen bg-stucco" aria-label="About Leah Grundhauser Portfolio Page">
       <Navbar />
       
-      {/* Floating Bubbles Background Animation */}
-      <FloatingBubbles />
+      {/* Floating Bubbles Background Animation: purely decorative, so aria-hidden for screen readers */}
+      <div aria-hidden="true">
+        <FloatingBubbles />
+      </div>
       
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-sea-life/70 via-sunset-yellow/30 to-coral/80 py-20 px-8">
+      {/* Hero Section: visually introduces the page, uses a custom handwriting font for artistic branding */}
+      <div className="bg-gradient-to-r from-sea-life/70 via-sunset-yellow/30 to-coral/80 py-20 px-8" aria-label="About Leah Hero Section">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-6xl font-bold text-sea-life mb-6 font-[family-name:var(--font-handwriting)]">
             From Canvas to Code
@@ -23,11 +26,11 @@ export default function About() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content: all major story sections are grouped here for layout and accessibility */}
       <div className="max-w-4xl mx-auto px-8 py-16 space-y-16">
         
-        {/* The Art Journey */}
-        <section>
+        {/* The Art Journey: Leah's background as an artist. aria-label for screen readers. */}
+        <section aria-label="Leah's Art Journey">
           <h2 className="text-4xl font-bold text-coral mb-6">The Art Journey</h2>
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
             <p>
@@ -54,8 +57,8 @@ export default function About() {
           </div>
         </section>
 
-        {/* The Plot Twist */}
-        <section className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-sea-life">
+        {/* The Plot Twist: Leah's transition to tech. aria-label for clarity. */}
+        <section className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-sea-life" aria-label="Leah's Tech Journey Plot Twist">
           <h2 className="text-4xl font-bold text-sea-life mb-6">The Plot Twist</h2>
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
             <p>
@@ -80,8 +83,8 @@ export default function About() {
           </div>
         </section>
 
-        {/* What Drives Me */}
-        <section>
+        {/* What Drives Me: Leah's mission and values. aria-label for screen readers. */}
+        <section aria-label="What Drives Leah Grundhauser">
           <h2 className="text-4xl font-bold text-sunset-yellow mb-6">What Drives Me Now</h2>
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
             <p>
@@ -103,15 +106,16 @@ export default function About() {
           </div>
         </section>
 
-        {/* Work Together */}
-        <section className="bg-gradient-to-br from-sea-life/10 to-coral/10 p-8 rounded-lg">
+        {/* Work Together: call to action for commissions and non-profit work. aria-label for clarity. */}
+        <section className="bg-gradient-to-br from-sea-life/10 to-coral/10 p-8 rounded-lg" aria-label="Work With Leah Grundhauser">
           <h2 className="text-4xl font-bold text-coral mb-6">Let's Work Together</h2>
           <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
             <p>
               Serving the Coastal Bend area.
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-coral">
+            {/* Commissions card: describes paid mural work. aria-label for screen readers. */}
+            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-coral" aria-label="Commissions Info">
               <h3 className="text-2xl font-bold text-coral mb-3">Commissions</h3>
               <p>
                 I take on commissioned murals for businesses, residential projects, and public spaces. 
@@ -119,7 +123,8 @@ export default function About() {
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-sunset-yellow">
+            {/* Non-Profit Program card: describes free mural program. aria-label for clarity. */}
+            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-sunset-yellow" aria-label="Non-Profit Mural Program">
               <h3 className="text-2xl font-bold text-sunset-yellow mb-3">Non-Profit Program</h3>
               <p>
                 <strong>I paint 4 free murals per year for non-profit organizations.</strong>
@@ -136,8 +141,8 @@ export default function About() {
           </div>
         </section>
 
-        {/* Contact CTA */}
-        <section className="text-center py-12">
+        {/* Contact CTA: clear call to action, aria-label for button, role for accessibility */}
+        <section className="text-center py-12" aria-label="Contact Leah Grundhauser">
           <h2 className="text-4xl font-bold text-sea-life mb-4">Ready to Create Something?</h2>
           <p className="text-gray-700 text-xl mb-8">
             Whether it's a mural, an interactive experience, or a wild idea you're not sure is possible — let's talk.
@@ -145,6 +150,8 @@ export default function About() {
           <a 
             href="/contact" 
             className="inline-block bg-coral hover:bg-coral/90 text-white font-bold text-xl px-12 py-4 rounded-full shadow-lg transition-all hover:scale-105"
+            aria-label="Contact Leah Grundhauser"
+            role="button"
           >
             Get In Touch
           </a>
