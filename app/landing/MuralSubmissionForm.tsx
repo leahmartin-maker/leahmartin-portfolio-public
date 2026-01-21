@@ -53,8 +53,10 @@ const createEmptyFormData = (): MuralApplicationFormData => ({
 
 export default function MuralSubmissionForm() {
   const [activeTab, setActiveTab] = useState('spring');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [springStatus, setSpringStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [useitStatus, setUseitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [springErrorMessage, setSpringErrorMessage] = useState('');
+  const [useitErrorMessage, setUseitErrorMessage] = useState('');
   const [springMediaFiles, setSpringMediaFiles] = useState<File[]>([]);
   const [springMediaPreviews, setSpringMediaPreviews] = useState<string[]>([]);
   const [useitMediaFiles, setUseitMediaFiles] = useState<File[]>([]);
@@ -67,6 +69,8 @@ export default function MuralSubmissionForm() {
   const currentFormData = activeTab === 'spring' ? springFormData : useitFormData;
   const currentMediaFiles = activeTab === 'spring' ? springMediaFiles : useitMediaFiles;
   const currentMediaPreviews = activeTab === 'spring' ? springMediaPreviews : useitMediaPreviews;
+  const currentStatus = activeTab === 'spring' ? springStatus : useitStatus;
+  const currentErrorMessage = activeTab === 'spring' ? springErrorMessage : useitErrorMessage;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -112,14 +116,19 @@ export default function MuralSubmissionForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('submitting');
-    setErrorMessage('');
+    if (activeTab === 'spring') {
+      setSpringStatus('submitting');
+      setSpringErrorMessage('');
+    } else {
+      setUseitStatus('submitting');
+      setUseitErrorMessage('');
+    }
 
     try {
       const form = new FormData();
       const submitFormData = activeTab === 'spring' ? springFormData : useitFormData;
       const submitMediaFiles = activeTab === 'spring' ? springMediaFiles : useitMediaFiles;
-      
+
       Object.entries(submitFormData).forEach(([key, value]) => {
         form.append(key, String(value));
       });
@@ -135,24 +144,35 @@ export default function MuralSubmissionForm() {
       });
 
       if (response.ok) {
-        setStatus('success');
         if (activeTab === 'spring') {
+          setSpringStatus('success');
           setSpringFormData(createEmptyFormData());
           setSpringMediaFiles([]);
           setSpringMediaPreviews([]);
         } else {
+          setUseitStatus('success');
           setUseitFormData(createEmptyFormData());
           setUseitMediaFiles([]);
           setUseitMediaPreviews([]);
         }
       } else {
         const data = await response.json();
-        setStatus('error');
-        setErrorMessage(data.error || 'Failed to submit application. Please try again.');
+        if (activeTab === 'spring') {
+          setSpringStatus('error');
+          setSpringErrorMessage(data.error || 'Failed to submit application. Please try again.');
+        } else {
+          setUseitStatus('error');
+          setUseitErrorMessage(data.error || 'Failed to submit application. Please try again.');
+        }
       }
     } catch (error) {
-      setStatus('error');
-      setErrorMessage('Network error. Please check your connection and try again.');
+      if (activeTab === 'spring') {
+        setSpringStatus('error');
+        setSpringErrorMessage('Network error. Please check your connection and try again.');
+      } else {
+        setUseitStatus('error');
+        setUseitErrorMessage('Network error. Please check your connection and try again.');
+      }
     }
   };
 
@@ -201,8 +221,8 @@ export default function MuralSubmissionForm() {
               formData={springFormData}
               mediaFiles={springMediaFiles}
               mediaPreviews={springMediaPreviews}
-              status={status}
-              errorMessage={errorMessage}
+              status={springStatus}
+              errorMessage={springErrorMessage}
               onInputChange={handleInputChange}
               onMediaChange={handleMediaChange}
               onRemoveMedia={removeMedia}
@@ -270,7 +290,7 @@ export default function MuralSubmissionForm() {
                     A confirmation email has been sent to <strong>{springFormData.email as string}</strong>.
                   </p>
                   <button
-                    onClick={() => setStatus('idle')}
+                    onClick={() => setSpringStatus('idle')}
                     className="text-sea-life hover:underline font-semibold"
                   >
                     Submit Another Application
@@ -286,28 +306,29 @@ export default function MuralSubmissionForm() {
               formData={useitFormData}
               mediaFiles={useitMediaFiles}
               mediaPreviews={useitMediaPreviews}
-              status={status}
-              errorMessage={errorMessage}
+              status={useitStatus}
+              errorMessage={useitErrorMessage}
               onInputChange={handleInputChange}
               onMediaChange={handleMediaChange}
               onRemoveMedia={removeMedia}
               onSubmit={handleSubmit}
-              ariaLabel="Use It or Lose It Application Form"
+              ariaLabel="Use It or Lose It Form"
               submitLabel="Submit Application"
               fieldLabels={USEIT_FIELD_LABELS}
               detailsText={
                 <>
-                  <p className="text-gray-600 text-sm mb-4" aria-live="polite">
-                    Whether you’re looking to revitalize a physical space or dominate the digital landscape, this is your opportunity to invest in a legacy that works for you 24/7.<br />
-                    From custom murals and high-performance websites to interactive AR experiences that bring your brand to life digitally, I specialize in making your vision a reality. My goal is to make this process seamless for you: simply let me know your available fund amount, and we will tailor a high-impact project that fits perfectly within your budget.<br />
-                    <strong>Don’t let your hard-earned funding disappear—let's use it to create something unforgettable.</strong> Click the link below to share your goals, and let’s get your project on the 2026 production calendar!
+                  <p className="text-gray-600 text-sm mb-2" aria-live="polite">
+                    <strong>Use It or Lose It</strong> is a special program for organizations and businesses who want to utilize remaining annual budget or grant funds before they expire. If you have a project idea, a wall, or a creative need, but aren’t sure how to use your resources, submit your information below. I’ll help you design a custom mural, AR experience, or digital feature that fits your goals and budget.<br /><br />
+                    
                   </p>
                 </>
               }
               legalText={
                 <div className="bg-gray-50 border border-gray-200 rounded p-4 mb-2">
                   <p className="text-xs text-gray-500 mb-2">
-                    By submitting, you certify you are an authorized representative of a registered Non-profit organization. Applications are reviewed on a rolling basis.
+                    <strong>By submitting this form:</strong> you agree to be contacted by [Your Business Name] regarding your project. Your information will be kept confidential and used only for the purpose of responding to your inquiry.<br />
+                    <strong>Budget:</strong> Please provide an estimated budget or range if possible. This helps me tailor my proposal to your needs.<br />
+                    <strong>Permissions:</strong> You grant [Your Business Name] permission to use submitted site descriptions and photos for promotional and evaluation purposes. This program is governed by the laws of the State of Texas and may be modified or canceled at the artist’s discretion due to safety or scheduling constraints.
                   </p>
                   <div className="flex items-start mb-2">
                     <input
@@ -352,7 +373,7 @@ export default function MuralSubmissionForm() {
                     A confirmation email has been sent to <strong>{useitFormData.email as string}</strong>.
                   </p>
                   <button
-                    onClick={() => setStatus('idle')}
+                    onClick={() => setUseitStatus('idle')}
                     className="text-sea-life hover:underline font-semibold"
                   >
                     Submit Another Application
