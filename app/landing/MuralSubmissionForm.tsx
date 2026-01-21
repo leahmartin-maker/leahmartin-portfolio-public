@@ -241,7 +241,7 @@ export default function MuralSubmissionForm() {
               legalText={
                 <div className="bg-gray-50 border border-gray-200 rounded p-4 mb-2">
                   <p className="text-xs text-gray-500 mb-2">
-                    <strong>By submitting this application:</strong> you certify that you are an authorized representative of the applicant organization.<br />
+                    <strong>By submitting this application:</strong> you certify that you are an authorized representative of a non-profit organization.<br />
                     <strong>Selection Process:</strong> Submissions are reviewed quarterly; applications must be received by the 1st of the final month of the quarter to be considered for the current cycle. One project will be selected per quarter at the sole discretion of [Your Business Name] based on site viability and community impact, with the recipient notified by the 15th of that month.<br />
                     <strong>Project Scope:</strong> The "free" designation applies to [Artist Labor/Design Fees]; the selected organization may be responsible for specific site costs such as wall preparation or equipment rentals.<br />
                     <strong>Non-Selection & Bidding:</strong> If your project is not selected for the free mural, you are encouraged to re-apply for the following quarter. By submitting, you acknowledge that you will receive a professional service bid for your project for immediate booking, as well as information regarding our "Use It or Lose It" Program, which allows organizations to utilize remaining annual budget or grants for mural projects before year-end deadlines.<br />

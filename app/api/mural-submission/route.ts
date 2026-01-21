@@ -168,7 +168,7 @@ export async function POST(request: NextRequest) {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #00c5cd; border-bottom: 3px solid #00c5cd; padding-bottom: 10px;">Thank You for Your Application!</h2>
           <p style="margin: 20px 0;">Hi ${data.contactName || data.orgName},</p>
-          <p style="margin: 20px 0;">Your mural application has been received. Leah will review your submission and reach out within 48 hours.</p>
+          <p style="margin: 20px 0;">Your mural application has been received. I will review your submission and reach out within 48 hours.</p>
           <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
             <p>Sent from leahmartin-portfolio-public mural application form</p>
           </div>
