@@ -89,8 +89,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Store submission (in production, this would be a database)
-    // For now, we'll log it and save to a JSON file
+    // Create submission object
     const submission = {
       id: Date.now(),
       timestamp: new Date().toISOString(),
@@ -99,91 +98,33 @@ export async function POST(request: NextRequest) {
       uploadedFiles,
     };
 
-    // Save to submissions file (production: use database)
-    const submissionsDir = path.join(process.cwd(), 'public', 'submissions');
-    try {
-      await fs.mkdir(submissionsDir, { recursive: true });
-    } catch (e) {
-      // Directory might already exist
-    }
-
-    const submissionsFile = path.join(submissionsDir, 'submissions.json');
-    let submissions = [];
-    try {
-      const content = await fs.readFile(submissionsFile, 'utf-8');
-      submissions = JSON.parse(content);
-    } catch {
-      // File doesn't exist yet
-    }
-    submissions.push(submission);
-    await fs.writeFile(submissionsFile, JSON.stringify(submissions, null, 2));
+    // Log submission for debugging and monitoring
+    console.log('MURAL SUBMISSION RECEIVED:', JSON.stringify(submission, null, 2));
+    
+    // NOTE: Vercel serverless environment does not support persistent filesystem writes.
+    // File storage to public/ directory is not available in production.
+    // TODO: Implement proper storage via:
+    // - Database (Supabase, MongoDB, PrismaCloud)
+    // - KV Store (Vercel KV, Redis)
+    // - Cloud storage (AWS S3, Vercel Blob)
+    // - Email forwarding service
 
 
-    // Send notification email to Leah (admin)
-    try {
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const adminEmail = process.env.CONTACT_EMAIL || 'artbyleahmartin@gmail.com';
-      const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-
-      // Build HTML email for admin
-      const adminHtml = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #00c5cd; border-bottom: 3px solid #00c5cd; padding-bottom: 10px;">New Mural Application Submission</h2>
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Organization:</strong> ${data.orgName}</p>
-            <p><strong>Contact Name:</strong> ${data.contactName}</p>
-            <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
-            <p><strong>Phone:</strong> ${data.phone || 'N/A'}</p>
-            <p><strong>Location:</strong> ${data.location}</p>
-          </div>
-          <div style="margin: 20px 0;">
-            <h3 style="color: #333;">About the Organization</h3>
-            <p style="line-height: 1.6; white-space: pre-wrap;">${data.aboutOrg}</p>
-            <h3 style="color: #333; margin-top: 16px;">Why a Mural?</h3>
-            <p style="line-height: 1.6; white-space: pre-wrap;">${data.whyMural}</p>
-            <h3 style="color: #333; margin-top: 16px;">Wall/Surface Details</h3>
-            <p style="line-height: 1.6; white-space: pre-wrap;">${data.wallDetails}</p>
-            <h3 style="color: #333; margin-top: 16px;">Timeline</h3>
-            <p style="line-height: 1.6; white-space: pre-wrap;">${data.timeline || 'N/A'}</p>
-            <h3 style="color: #333; margin-top: 16px;">Other Notes</h3>
-            <p style="line-height: 1.6; white-space: pre-wrap;">${data.otherNotes || 'N/A'}</p>
-          </div>
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
-            <p>Sent from leahmartin-portfolio-public mural application form</p>
-          </div>
-        </div>
-      `;
-
-      // Send to Leah
-      await resend.emails.send({
-        from: fromEmail,
-        to: [adminEmail],
-        subject: `New Mural Application from ${data.contactName || data.orgName}`,
-        replyTo: data.email,
-        html: adminHtml,
-      });
-
-      // Send confirmation to applicant
-      const applicantHtml = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #00c5cd; border-bottom: 3px solid #00c5cd; padding-bottom: 10px;">Thank You for Your Application!</h2>
-          <p style="margin: 20px 0;">Hi ${data.contactName || data.orgName},</p>
-          <p style="margin: 20px 0;">Your mural application has been received. I will review your submission and reach out within 48 hours.</p>
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
-            <p>Sent from leahmartin-portfolio-public mural application form</p>
-          </div>
-        </div>
-      `;
-      await resend.emails.send({
-        from: fromEmail,
-        to: [data.email],
-        subject: 'Your Mural Application Was Received',
-        html: applicantHtml,
-      });
-    } catch (emailError) {
-      // Log but don't block submission
-      console.error('Mural application email error:', emailError);
-    }
+    // Email sending temporarily disabled due to missing environment variables or configuration issues.
+    // To re-enable, restore the Resend email code below and ensure all environment variables are set.
+    // try {
+    //   const resend = new Resend(process.env.RESEND_API_KEY);
+    //   const adminEmail = process.env.CONTACT_EMAIL || 'artbyleahmartin@gmail.com';
+    //   const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    //   // Build HTML email for admin
+    //   const adminHtml = `...`;
+    //   await resend.emails.send({ ... });
+    //   // Send confirmation to applicant
+    //   const applicantHtml = `...`;
+    //   await resend.emails.send({ ... });
+    // } catch (emailError) {
+    //   console.error('Mural application email error:', emailError);
+    // }
 
     // Return success response
     return NextResponse.json(
