@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = createClient(supabaseUrl || '', supabaseKey || '');
 
 export async function POST(request: Request) {
   try {
@@ -70,6 +75,24 @@ export async function POST(request: Request) {
         { error: 'Failed to send email' },
         { status: 500 }
       );
+    }
+
+    // Save to Supabase
+    const { data: dbResult, error: dbError } = await supabase
+      .from('contact_submissions')
+      .insert([{
+        name,
+        email,
+        project_type: projectType,
+        message
+      }])
+      .select();
+
+    if (dbError) {
+      console.error('Supabase error:', dbError);
+      // Don't fail the request, email was already sent
+    } else {
+      console.log('✅ Saved to database:', dbResult?.[0]?.id);
     }
 
     // Log success (keep for debugging)
