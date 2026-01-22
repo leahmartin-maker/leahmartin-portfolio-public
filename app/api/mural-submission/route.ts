@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// FORCE REBUILD: No filesystem writes on Vercel
 export async function POST(request: NextRequest) {
   try {
     return NextResponse.json(
