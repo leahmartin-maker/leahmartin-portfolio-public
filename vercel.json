@@ -1,4 +1,8 @@
 {
+  "buildCommand": "npm run build",
+  "env": {
+    "FORCE_REBUILD": "true"
+  },
   "headers": [
     {
       "source": "/leah-martin-contact.vcf",
