@@ -18,6 +18,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Navbar from '../components/Navbar';
@@ -225,30 +226,33 @@ export default function MuralsPage() {
                 {/* Media Gallery */}
                 <div className="space-y-4">
                   {selectedMural.media.map((file, index) => {
-                  if (file.endsWith('.mp4')) {
-                    return (
-                      <video 
-                        key={index} 
-                        autoPlay 
-                        loop 
-                        muted 
-                        playsInline
-                        className="w-full rounded-lg"
-                      >
-                        <source src={file} type="video/mp4" />
-                      </video>
-                    );
-                  } else {
-                    return (
-                      <img
-                        key={index}
-                        src={file}
-                        alt={selectedMural.title}
-                        className="w-full rounded-lg"
-                      />
-                    );
-                  }
-                })}
+                    if (file.endsWith('.mp4')) {
+                      return (
+                        <video 
+                          key={index} 
+                          autoPlay 
+                          loop 
+                          muted 
+                          playsInline
+                          className="w-full rounded-lg"
+                        >
+                          <source src={file} type="video/mp4" />
+                        </video>
+                      );
+                    } else {
+                      return (
+                        <Image
+                          key={index}
+                          src={file}
+                          alt={selectedMural.title}
+                          width={800}
+                          height={600}
+                          className="w-full rounded-lg"
+                          aria-label={selectedMural.title}
+                        />
+                      );
+                    }
+                  })}
               </div>
               </div>
             </div>
