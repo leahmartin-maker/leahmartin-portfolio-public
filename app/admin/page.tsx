@@ -1,3 +1,4 @@
+
 "use client";
 import { useEffect, useState } from "react";
 import { createClient } from '@supabase/supabase-js';
@@ -98,6 +99,24 @@ export default function AdminPage() {
           />
         </div>
         <p className="text-xs text-gray-400 mt-2">Powered by <a href="https://todoist.com/" target="_blank" rel="noopener noreferrer" className="underline">Todoist</a> free widget.</p>
+      </section>
+
+      {/* Google Calendar Card */}
+      <section className="w-full max-w-xl bg-white rounded-lg shadow-lg p-4 mb-8" aria-label="Google Calendar">
+        <h2 className="text-xl font-semibold mb-2">Calendar</h2>
+        <div className="w-full flex justify-center">
+          <iframe
+            title="Google Calendar"
+            aria-label="Google Calendar"
+            src="https://calendar.google.com/calendar/embed?src=artbyleahmartin%40gmail.com&ctz=America%2FChicago"
+            style={{ border: 0, width: '100%', minHeight: '600px' }}
+            width="800"
+            height="600"
+            frameBorder="0"
+            scrolling="no"
+          />
+        </div>
+        <p className="text-xs text-gray-400 mt-2">Powered by <a href="https://calendar.google.com/" target="_blank" rel="noopener noreferrer" className="underline">Google Calendar</a>.</p>
       </section>
       {/* Murals Card */}
       <section className="w-full max-w-xl bg-white rounded-lg shadow-lg p-4 mb-8">
