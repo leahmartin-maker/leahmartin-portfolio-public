@@ -148,6 +148,15 @@ export default function AdminPage() {
       {/* Murals Card */}
       <section className="w-full max-w-xl bg-white rounded-lg shadow-lg p-4 mb-8">
         <h2 className="text-xl font-semibold mb-2">Murals <span className="text-xs text-gray-400">(Edit or review)</span></h2>
+        <div className="flex justify-end mb-4">
+          <a
+            href="https://leahmartin-portfolio-public.vercel.app/admin/add-mural"
+            className="px-4 py-2 bg-sea-life text-white rounded font-semibold shadow hover:bg-sea-life/80 focus:outline-none focus:ring-2 focus:ring-sea-life transition"
+            aria-label="Add A Mural"
+          >
+            + Add A Mural
+          </a>
+        </div>
         <div className="max-h-64 overflow-y-auto border rounded p-2 bg-gray-50" aria-label="Murals List" tabIndex={0}>
           {loading ? (
             <div className="text-center text-gray-400">Loading...</div>
