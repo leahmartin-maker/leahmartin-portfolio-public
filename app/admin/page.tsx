@@ -82,6 +82,33 @@ export default function AdminPage() {
           >
             Gmail
           </a>
+          <a
+            href="https://leahmartin-portfolio-public.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
+            aria-label="My Site"
+          >
+            My Site
+          </a>
+          <a
+            href="https://leahmartin-maker-github-io.vercel.app/smart-pier"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
+            aria-label="Smart Pier"
+          >
+            Smart Pier
+          </a>
+          <a
+            href="https://leahmartin-portfolio-public.vercel.app/landing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
+            aria-label="Landing"
+          >
+            Landing
+          </a>
         </div>
       </section>
 
