@@ -39,6 +39,7 @@ type Mural = {
 export default function MuralsPage() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
+  const markersRef = useRef<mapboxgl.Marker[]>([]);
   const [murals, setMurals] = useState<Mural[]>([]);
   const [selectedMural, setSelectedMural] = useState<Mural | null>(null);
 
@@ -46,10 +47,17 @@ export default function MuralsPage() {
   useEffect(() => {
     const loadMurals = async () => {
       try {
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+        if (!supabaseUrl || !supabaseKey) {
+          console.error('Missing Supabase environment variables');
+          return;
+        }
+
         const supabase = createClient(supabaseUrl, supabaseKey);
 
+        console.log('Fetching murals from Supabase...');
         const { data, error } = await supabase
           .from('murals')
           .select('*')
@@ -61,6 +69,8 @@ export default function MuralsPage() {
           return;
         }
 
+        console.log('Fetched murals from Supabase:', data);
+
         // Transform Supabase data to match Mural type
         const formattedMurals = (data || []).map((mural: any) => ({
           title: mural.title,
@@ -70,6 +80,7 @@ export default function MuralsPage() {
           media: Array.isArray(mural.media) ? mural.media : []
         }));
 
+        console.log('Formatted murals:', formattedMurals);
         setMurals(formattedMurals);
       } catch (error) {
         console.error('Error loading murals:', error);
@@ -128,6 +139,10 @@ export default function MuralsPage() {
   useEffect(() => {
     if (!map.current || murals.length === 0) return;
 
+    // Clear old markers before adding new ones
+    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current = [];
+
     murals.forEach(mural => {
       // Create wrapper for the marker (Mapbox positions this)
       const wrapper = document.createElement('div');
@@ -168,6 +183,9 @@ export default function MuralsPage() {
       })
         .setLngLat([mural.longitude, mural.latitude])
         .addTo(map.current!);
+
+      // Store marker reference so we can clear it later
+      markersRef.current.push(marker);
 
       // Show mural details on click
       el.addEventListener('click', () => {
