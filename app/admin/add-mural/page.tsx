@@ -95,7 +95,21 @@ export default function AddMuralPage() {
         <input name="title" value={form.title} onChange={handleChange} required placeholder="Title (location)" className="w-full border p-2 rounded" aria-label="Title" />
         <textarea name="description" value={form.description} onChange={handleChange} required placeholder="Description" className="w-full border p-2 rounded" aria-label="Description" />
         <input name="latitude" value={form.latitude} onChange={handleChange} required placeholder="Latitude" className="w-full border p-2 rounded" aria-label="Latitude" type="number" step="any" />
-        <input name="longitude" value={form.longitude} onChange={handleChange} required placeholder="Longitude" className="w-full border p-2 rounded" aria-label="Longitude" type="number" step="any" />
+        <div className="flex gap-2 items-center">
+          <input name="longitude" value={form.longitude} onChange={handleChange} required placeholder="Longitude (without -)" className="flex-1 border p-2 rounded" aria-label="Longitude" type="number" step="any" />
+          <button 
+            type="button" 
+            onClick={() => {
+              const absLon = Math.abs(parseFloat(form.longitude) || 0);
+              const newLon = form.longitude.startsWith('-') ? absLon.toString() : (-absLon).toString();
+              setForm(f => ({ ...f, longitude: newLon }));
+            }}
+            className="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 font-bold"
+            title="Toggle negative sign"
+          >
+            {form.longitude.startsWith('-') ? '+' : '−'}
+          </button>
+        </div>
         <input name="media" value={form.media} onChange={handleChange} placeholder="Media URLs (comma separated)" className="w-full border p-2 rounded" aria-label="Media URLs" />
         <input type="file" multiple accept="image/*,video/*" onChange={handleMediaChange} className="w-full border p-2 rounded" aria-label="Upload Media Files" />
         {uploading && <div className="text-blue-600">Uploading...</div>}
