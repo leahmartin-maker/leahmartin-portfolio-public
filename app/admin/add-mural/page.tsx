@@ -45,10 +45,12 @@ export default function AddMuralPage() {
   const ADMIN_PASSWORD = "Logancobb13!";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
     setForm(f => ({
       ...f,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox"
+        ? (e.target as HTMLInputElement).checked
+        : value
     }));
   };
 
