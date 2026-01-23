@@ -19,7 +19,7 @@ export default function AddMuralPage() {
   const [status, setStatus] = useState("");
   // Supabase client for uploads
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
   const supabase = createClient(supabaseUrl, supabaseKey);
   // Handle file selection and upload
   const handleMediaChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
