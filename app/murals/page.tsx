@@ -22,6 +22,7 @@ import Image from 'next/image';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Navbar from '../components/Navbar';
+import { createClient } from '@supabase/supabase-js';
 
 // Mapbox access token
 mapboxgl.accessToken = 'pk.eyJ1IjoibGVhaG1hcnRpbi1tYWtlciIsImEiOiJjbWs3OWhtaHYxMnU4M2hwdzhtdjVsbzZsIn0.6v_uxNreMRzVockKLFv80Q';
@@ -41,12 +42,41 @@ export default function MuralsPage() {
   const [murals, setMurals] = useState<Mural[]>([]);
   const [selectedMural, setSelectedMural] = useState<Mural | null>(null);
 
-  // Load mural data from JSON file
+  // Load mural data from Supabase
   useEffect(() => {
-    fetch('/murals.json')
-      .then(response => response.json())
-      .then(data => setMurals(data.murals))
-      .catch(error => console.error('Error loading murals:', error));
+    const loadMurals = async () => {
+      try {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const { data, error } = await supabase
+          .from('murals')
+          .select('*')
+          .eq('is_active', true)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error('Error loading murals from Supabase:', error);
+          return;
+        }
+
+        // Transform Supabase data to match Mural type
+        const formattedMurals = (data || []).map((mural: any) => ({
+          title: mural.title,
+          longitude: mural.longitude,
+          latitude: mural.latitude,
+          description: mural.description,
+          media: Array.isArray(mural.media) ? mural.media : []
+        }));
+
+        setMurals(formattedMurals);
+      } catch (error) {
+        console.error('Error loading murals:', error);
+      }
+    };
+
+    loadMurals();
   }, []);
 
   // Disable map interactions when card is open on mobile
