@@ -28,10 +28,10 @@ export default function AddMuralPage() {
     setUploading(true);
     const uploadedUrls: string[] = [];
     for (const file of files) {
-      const filePath = `murals/${Date.now()}-${file.name}`;
+      const filePath = `${Date.now()}-${file.name}`;
       const { error } = await supabase.storage.from('murals').upload(filePath, file, { upsert: false });
       if (!error) {
-        const publicUrl = `${supabaseUrl}/storage/v1/object/public/murals/${encodeURIComponent(filePath.replace('murals/', ''))}`;
+        const publicUrl = `${supabaseUrl}/storage/v1/object/public/murals/${encodeURIComponent(filePath)}`;
         uploadedUrls.push(publicUrl);
       } else {
         setStatus(`Failed to upload ${file.name}`);
