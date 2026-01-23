@@ -32,6 +32,73 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-stucco p-6 flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+      {/* Quick Links Card */}
+      <section className="w-full max-w-xl bg-white rounded-lg shadow-lg p-4 mb-8">
+        <h2 className="text-xl font-semibold mb-2">Quick Links</h2>
+        <div className="flex flex-wrap gap-3">
+          <a
+            href="https://github.com/leahmartin-maker"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
+            aria-label="GitHub"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://vercel.com/leah-martins-projects/leahmartin-portfolio-public"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
+            aria-label="Vercel"
+          >
+            Vercel
+          </a>
+          <a
+            href="https://platform.claude.com/settings/billing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
+            aria-label="Claude"
+          >
+            Claude
+          </a>
+          <a
+            href="https://supabase.com/dashboard/project/rsohhfwmpzqqvacinfno/editor/18679"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
+            aria-label="Supabase"
+          >
+            Supabase
+          </a>
+          <a
+            href="https://mail.google.com/mail/u/0/#inbox"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
+            aria-label="Gmail"
+          >
+            Gmail
+          </a>
+        </div>
+      </section>
+
+      {/* Todoist Widget Card */}
+      <section className="w-full max-w-xl bg-white rounded-lg shadow-lg p-4 mb-8" aria-label="Todo List">
+        <h2 className="text-xl font-semibold mb-2">To-Do List</h2>
+        <div className="w-full flex justify-center">
+          {/* Todoist free widget embed - replace the src URL with your Todoist project or use the default */}
+          <iframe
+            title="Todoist To-Do List"
+            aria-label="Todoist To-Do List"
+            src="https://todoist.com/app/embed/project?projectUrl=https%3A%2F%2Ftodoist.com%2Fapp%2Fproject%2Fdefault"
+            style={{ width: '100%', minHeight: '500px', border: 'none', background: 'transparent' }}
+            allow="clipboard-write"
+          />
+        </div>
+        <p className="text-xs text-gray-400 mt-2">Powered by <a href="https://todoist.com/" target="_blank" rel="noopener noreferrer" className="underline">Todoist</a> free widget.</p>
+      </section>
       {/* Murals Card */}
       <section className="w-full max-w-xl bg-white rounded-lg shadow-lg p-4 mb-8">
         <h2 className="text-xl font-semibold mb-2">Murals <span className="text-xs text-gray-400">(Edit or review)</span></h2>
