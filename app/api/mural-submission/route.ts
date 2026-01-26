@@ -1,19 +1,21 @@
 // app/api/mural-submission/route.ts
 // API endpoint for receiving and processing Spring Mural Application submissions
-// Handles file uploads, validation, storage, and optional email notifications
+// Handles form validation, stores to Supabase database, and sends email notifications
 //
 // Real World Context:
-// SaaS platforms like Stripe, Vercel, and GitHub use similar patterns to:
-// 1. Validate incoming data (type checking, required fields)
-// 2. Process file uploads (store in cloud storage or temp directory)
-// 3. Send confirmations and internal notifications
-// 4. Log/track submissions for review and analytics
-// This endpoint is production-ready and scalable.
+// - Stores data in Supabase (reliable across localhost and production)
+// - Does NOT write to filesystem (production servers like Vercel don't allow this)
+// - Follows same pattern as contact form for consistency
+// - Professional apps always use databases for form submissions
 
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs/promises';
 import { Resend } from 'resend';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase with service role (server-side only, secure)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = createClient(supabaseUrl || '', supabaseKey || '');
 
 // Validation helper
 function validateFormData(data: Record<string, string>): { valid: boolean; errors: string[] } {
@@ -61,62 +63,38 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Process file uploads if any
-    const mediaCount = parseInt(data.mediaCount || '0', 10);
-    const uploadedFiles: string[] = [];
+    // Get submission type (spring or useit)
+    const submissionType = data.submissionType || 'spring';
 
-    if (mediaCount > 0) {
-      // Create submissions directory if it doesn't exist
-      const uploadsDir = path.join(process.cwd(), 'public', 'submissions', 'murals');
-      try {
-        await fs.mkdir(uploadsDir, { recursive: true });
-      } catch (e) {
-        // Directory might already exist
-      }
+    // Save to Supabase (this works on localhost AND production)
+    const { data: dbResult, error: dbError } = await supabase
+      .from('mural_submissions')
+      .insert([{
+        org_name: data.orgName,
+        contact_name: data.contactName,
+        email: data.email,
+        phone: data.phone || null,
+        location: data.location,
+        about_org: data.aboutOrg,
+        why_mural: data.whyMural,
+        wall_details: data.wallDetails,
+        timeline: data.timeline || null,
+        other_notes: data.otherNotes || null,
+        submission_type: submissionType,
+        created_at: new Date().toISOString(),
+      }])
+      .select();
 
-      // Save uploaded media files
-      for (let i = 0; i < mediaCount; i++) {
-        const file = formData.get(`media_${i}`) as File;
-        if (file) {
-          const buffer = await file.arrayBuffer();
-          const timestamp = Date.now();
-          const filename = `${timestamp}-${i}-${file.name}`;
-          const filepath = path.join(uploadsDir, filename);
-          
-          await fs.writeFile(filepath, Buffer.from(buffer));
-          uploadedFiles.push(`/submissions/murals/${filename}`);
-        }
-      }
+    if (dbError) {
+      console.error('Supabase insert error:', dbError);
+      return NextResponse.json(
+        { error: `Database error: ${dbError.message}` },
+        { status: 500 }
+      );
     }
 
-    // Store submission (in production, this would be a database)
-    // For now, we'll log it and save to a JSON file
-    const submission = {
-      id: Date.now(),
-      timestamp: new Date().toISOString(),
-      type: 'spring-mural-application',
-      ...data,
-      uploadedFiles,
-    };
-
-    // Save to submissions file (production: use database)
-    const submissionsDir = path.join(process.cwd(), 'public', 'submissions');
-    try {
-      await fs.mkdir(submissionsDir, { recursive: true });
-    } catch (e) {
-      // Directory might already exist
-    }
-
-    const submissionsFile = path.join(submissionsDir, 'submissions.json');
-    let submissions = [];
-    try {
-      const content = await fs.readFile(submissionsFile, 'utf-8');
-      submissions = JSON.parse(content);
-    } catch {
-      // File doesn't exist yet
-    }
-    submissions.push(submission);
-    await fs.writeFile(submissionsFile, JSON.stringify(submissions, null, 2));
+    console.log('✅ Saved to Supabase:', dbResult?.[0]?.id);
+    const submission = dbResult?.[0];
 
 
     // Send notification email to Leah (admin)
@@ -195,19 +173,20 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Mural submission error:', error);
+  console.error('Mural submission error:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: 'Failed to process submission. Please try again.' },
+      { error: `Failed to process submission: ${errorMessage}` },
       { status: 500 }
     );
   }
 }
 
 // Real World Production Notes:
-// 1. Replace file storage with cloud service (AWS S3, Cloudinary, Vercel Blob)
-// 2. Replace JSON file storage with actual database (Prisma + PostgreSQL, MongoDB, etc.)
-// 3. Implement email service (Resend, SendGrid, AWS SES)
-// 4. Add rate limiting to prevent spam
-// 5. Add CSRF protection and request validation
-// 6. Log submissions for analytics and monitoring
-// 7. Consider webhook notifications for admin
+// ✅ DONE: Using Supabase database (reliable on localhost and production)
+// ✅ DONE: Removed filesystem writes (Vercel/serverless don't support this)
+// ✅ DONE: Email notifications via Resend
+// TODO: Add rate limiting to prevent spam (use middleware or Redis)
+// TODO: Add file upload support (currently form data only)
+// TODO: Add CAPTCHA for production security
+// TODO: Log submissions for analytics and monitoring

@@ -78,5 +78,25 @@
     "mediaCount": "0",
     "submissionType": "useit",
     "uploadedFiles": []
+  },
+  {
+    "id": 1769464430688,
+    "timestamp": "2026-01-26T21:53:50.688Z",
+    "type": "spring-mural-application",
+    "orgName": "test",
+    "contactName": "test",
+    "email": "Number31313@gmail.com",
+    "phone": "3614539120",
+    "location": "test",
+    "aboutOrg": "test",
+    "whyMural": "test",
+    "wallDetails": "test",
+    "timeline": "test",
+    "otherNotes": "test",
+    "authCheckbox": "true",
+    "agreeCheckbox": "true",
+    "mediaCount": "0",
+    "submissionType": "spring",
+    "uploadedFiles": []
   }
 ]
