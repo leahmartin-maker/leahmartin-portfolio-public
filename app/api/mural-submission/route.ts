@@ -87,6 +87,21 @@ export async function POST(request: NextRequest) {
 
     if (dbError) {
       console.error('Supabase insert error:', dbError);
+      // Log the failed submission to Supabase
+      try {
+        await supabase
+          .from('submission_errors')
+          .insert([
+            {
+              email: data.email || null,
+              error_message: dbError.message,
+              failed_at: new Date().toISOString(),
+              form_type: submissionType,
+            },
+          ]);
+      } catch (logError) {
+        console.error('Failed to log submission error:', logError);
+      }
       return NextResponse.json(
         { error: `Database error: ${dbError.message}` },
         { status: 500 }
