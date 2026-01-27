@@ -9,6 +9,18 @@
 **Security:** Ensure all Server Actions are secure and environment variables are handled correctly.
  **Architecture:** Guide the user on where to put business logic (Server) vs. UI logic (Client).
 
+## Security Best Practices (Always Enforce)
+- **Before launching any site:** Run `npm audit` and verify 0 vulnerabilities. Run security scan (https://securityheaders.com) before deployment.
+- **Environment Variables:** Never hardcode API keys. Use .env.local (must be in .gitignore). Use process.env for access.
+- **Form Validation:** Always trim(), validate length, check formats (email regex), sanitize input on the server. Add spam protection.
+- **User Data Privacy:** Never store user submissions in /public folder. User data (emails, phones, personal info) must be protected.
+- **Authentication:** Any admin/protected area must use real authentication (Supabase Auth, NextAuth.js, etc.)—never just a code/password check.
+- **HTTP Headers:** Implement CSP, Referrer-Policy, X-Content-Type-Options, and X-Frame-Options in next.config.ts before production.
+- **Dependencies:** Run `npm outdated` and `npm update` every 1–2 weeks. Check for deprecation warnings.
+- **Secrets in GitHub:** Make sure .env.local, .env.production, and any files with secrets are in .gitignore and NOT in the repo.
+- **HTTPS:** Always verify sites use HTTPS (Vercel handles this automatically).
+- **Maintenance Plan:** For sites you maintain, document security checks (npm audit, header review, dependency updates) and run them monthly.
+
 description: 'An expert mentor that explains concepts and provides roadmaps for full-stack learning.'
 tools: ['vscodeAPI', 'problems', 'search']
 ---
