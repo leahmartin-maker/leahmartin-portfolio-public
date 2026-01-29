@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; img-src 'self' https: data:; media-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self' https://rsohhfwmpzqqvacinfno.supabase.co https://api.mapbox.com https://events.mapbox.com;",
+            value: "default-src 'self'; img-src 'self' https: data:; media-src 'self' https:; script-src 'self' 'unsafe-eval' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https: data:; connect-src 'self' https: wss:; worker-src 'self' blob:; frame-src 'self' https:;",
           },
           {
             key: 'Referrer-Policy',
