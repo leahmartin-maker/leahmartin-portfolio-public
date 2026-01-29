@@ -46,3 +46,5 @@ next-env.d.ts
 # API keys and secrets
 app/api/contact/KEY
 KEYS
+# Local development files (not published)
+_local/
