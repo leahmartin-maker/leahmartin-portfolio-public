@@ -1,96 +1,142 @@
 "use client";
 import { useRef, useEffect } from "react";
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-/**
- * AnchorInteractive - Minimal Three.js Scene
- *
- * This component renders a Three.js canvas with a spinning cube.
- * You can reuse this component anywhere in your app.
- *
- * Real World Context:
- * This is how interactive 3D scenes are embedded in modern web apps.
- * You can expand this to load images, models, or add interactivity.
- */
+
 
 export default function AnchorInteractive() {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Set up scene
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0); // transparent background
+    let renderer, scene, camera, controls;
+    let frameId;
+    let isMounted = true;
 
-    // Add a spinning cube
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00c5cd });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    camera.position.z = 5; // Move camera back for better 3D effect
-
-    // Mount renderer to DOM
-    // Remove any existing canvas before appending (prevents duplicates)
-    if (mountRef.current) {
-      // Remove all children (should only be one canvas)
-      while (mountRef.current.firstChild) {
-        mountRef.current.removeChild(mountRef.current.firstChild);
-      }
-      mountRef.current.appendChild(renderer.domElement);
-    }
-
-    // Add OrbitControls for camera movement (desktop & mobile)
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // smooth camera motion
-    controls.dampingFactor = 0.05;
-    controls.screenSpacePanning = false;
-    controls.minDistance = 2;
-    controls.maxDistance = 20;
-    controls.enablePan = true; // allow panning
-    controls.enableZoom = true; // allow zoom
-    controls.enableRotate = true; // allow rotation
-
-    // Animation loop
-    let frameId: number;
-    const animate = () => {
-      // Cube no longer spins automatically; only moves with camera controls
-      renderer.render(scene, camera);
-      // Debug: log rotation to confirm animation is running
-      // Remove this after confirming
-      // console.log('Cube rotation:', cube.rotation.x, cube.rotation.y);
-      controls.update();
-      frameId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    // Handle resize
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
+    Promise.all([
+      import('three'),
+      import('three/examples/jsm/controls/OrbitControls')
+    ]).then(([THREE, controlsModule]) => {
+      if (!isMounted) return;
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-    window.addEventListener("resize", handleResize);
+      renderer.setClearColor(0x000000, 0);
 
-    // Cleanup
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener("resize", handleResize);
-      controls.dispose();
+
+      // Load mural texture and add as a large background plane
+      const loader = new THREE.TextureLoader();
+      loader.load("/anchor_interactive/anchorempty.png", (texture) => {
+        const muralWidth = 2.0;
+        const muralHeight = 4.0;
+        const muralGeometry = new THREE.PlaneGeometry(muralWidth, muralHeight);
+        const muralMaterial = new THREE.MeshBasicMaterial({ map: texture });
+        const muralPlane = new THREE.Mesh(muralGeometry, muralMaterial);
+        muralPlane.position.set(0, 0, -1);
+        scene.add(muralPlane);
+
+        // Load caustics PNG sequence and animate as overlay
+        const causticsFrameCount = 6;
+        const causticsTextures = [];
+        let loadedCount = 0;
+        for (let i = 1; i <= causticsFrameCount; i++) {
+          const frameNum = i.toString().padStart(3, '0');
+          loader.load(`/anchor_interactive/watercaustics_${frameNum}.png`, (tex) => {
+            tex.wrapS = THREE.RepeatWrapping;
+            tex.wrapT = THREE.RepeatWrapping;
+            tex.repeat.set(1, 1);
+            causticsTextures[i - 1] = tex;
+            loadedCount++;
+            if (loadedCount === causticsFrameCount) {
+              // All frames loaded, create the plane
+              const causticsMaterial = new THREE.MeshBasicMaterial({
+                map: causticsTextures[0],
+                transparent: true,
+                opacity: 0.45,
+                depthWrite: false,
+              });
+              const causticsPlane = new THREE.Mesh(
+                new THREE.PlaneGeometry(muralWidth, muralHeight),
+                causticsMaterial
+              );
+              causticsPlane.position.set(0, 0, -0.98);
+              scene.add(causticsPlane);
+
+              // Animate by swapping textures
+              let frame = 0;
+              setInterval(() => {
+                frame = (frame + 1) % causticsFrameCount;
+                causticsMaterial.map = causticsTextures[frame];
+                causticsMaterial.needsUpdate = true;
+              }, 100); // 100ms per frame = 10 FPS (adjust as needed)
+            }
+          });
+        }
+      });
+
+      // Add underwater lighting (soft blue directional light)
+      const light = new THREE.DirectionalLight(0x66ccff, 1.2);
+      light.position.set(0, 2, 2);
+      scene.add(light);
+
+      camera.position.z = 5;
+
+      // Mount renderer to DOM
       if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
+        while (mountRef.current.firstChild) {
+          mountRef.current.removeChild(mountRef.current.firstChild);
+        }
+        mountRef.current.appendChild(renderer.domElement);
       }
-    };
+
+      // Add OrbitControls for camera movement
+      const OrbitControls = controlsModule.OrbitControls;
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.screenSpacePanning = false;
+      controls.minDistance = 2;
+      controls.maxDistance = 20;
+      controls.enablePan = true;
+      controls.enableZoom = true;
+      controls.enableRotate = true;
+
+      // Animation loop
+      const animate = () => {
+        renderer.render(scene, camera);
+        controls.update();
+        frameId = requestAnimationFrame(animate);
+      };
+      animate();
+
+      // Handle resize
+      const handleResize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      };
+      window.addEventListener("resize", handleResize);
+
+      // Cleanup
+      return () => {
+        isMounted = false;
+        cancelAnimationFrame(frameId);
+        window.removeEventListener("resize", handleResize);
+        controls.dispose();
+        if (mountRef.current) {
+          mountRef.current.removeChild(renderer.domElement);
+        }
+      };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => { isMounted = false; };
   }, []);
 
+  // Only render the Three.js canvas container
   return (
     <div
       ref={mountRef}
