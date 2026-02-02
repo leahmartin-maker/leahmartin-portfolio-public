@@ -113,7 +113,7 @@ export default function AdminPage() {
             Landing
           </a>
             <a
-              href="https://rod-proposal-2eitx1h36-leah-martins-projects.vercel.app/dashboard"
+              href="https://rod-proposal.vercel.app/dashboard"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-gray-100 rounded hover:bg-sea-life/20 border border-sea-life text-sea-life font-semibold transition focus:outline-none focus:ring-2 focus:ring-sea-life"
