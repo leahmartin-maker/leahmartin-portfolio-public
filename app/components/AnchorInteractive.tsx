@@ -1,14 +1,26 @@
 "use client";
 import { useRef, useEffect } from "react";
 
-
+/**
+ * Real World Context:
+ * This component creates an interactive 3D underwater scene with animated caustics.
+ * In a professional tech company, such components are used in portfolio showcases,
+ * product visualizations, or interactive marketing experiences. They demonstrate
+ * advanced skills in Three.js, WebGL, and React hooks integration. This is a great
+ * portfolio piece showing you understand performance optimization (dynamic imports),
+ * cleanup patterns, and responsive design.
+ */
 
 export default function AnchorInteractive() {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let renderer, scene, camera, controls;
-    let frameId;
+    // Use 'any' for types here because THREE is only available after dynamic import
+    let renderer: any;
+    let scene: any;
+    let camera: any;
+    let controls: any;
+    let frameId: number;
     let isMounted = true;
 
     Promise.all([
@@ -41,7 +53,7 @@ export default function AnchorInteractive() {
 
         // Load caustics PNG sequence and animate as overlay
         const causticsFrameCount = 6;
-        const causticsTextures = [];
+        const causticsTextures: any[] = [];
         let loadedCount = 0;
         for (let i = 1; i <= causticsFrameCount; i++) {
           const frameNum = i.toString().padStart(3, '0');
@@ -66,10 +78,12 @@ export default function AnchorInteractive() {
               causticsPlane.position.set(0, 0, -0.98);
               scene.add(causticsPlane);
 
-              // Animate by swapping textures
+              // Animate by swapping textures each frame to create illusion of flowing water
+              // This mimics real-time caustics without expensive GPU computation
               let frame = 0;
               setInterval(() => {
                 frame = (frame + 1) % causticsFrameCount;
+                // Update material's texture map and flag for re-render
                 causticsMaterial.map = causticsTextures[frame];
                 causticsMaterial.needsUpdate = true;
               }, 100); // 100ms per frame = 10 FPS (adjust as needed)
@@ -121,14 +135,14 @@ export default function AnchorInteractive() {
       };
       window.addEventListener("resize", handleResize);
 
-      // Cleanup
+      // Cleanup: Prevent state updates on unmounted component (prevents memory leaks)
       return () => {
-        isMounted = false;
+        isMounted = false; // Stop any pending state updates or animations
         cancelAnimationFrame(frameId);
         window.removeEventListener("resize", handleResize);
-        controls.dispose();
+        controls.dispose(); // Release OrbitControls resources
         if (mountRef.current) {
-          mountRef.current.removeChild(renderer.domElement);
+          mountRef.current.removeChild(renderer.domElement); // Remove WebGL canvas from DOM
         }
       };
     });
